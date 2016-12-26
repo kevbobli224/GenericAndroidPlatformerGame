@@ -34,6 +34,8 @@ public class GameActivity extends Activity {
 
     int jumpNoPushX;
     int jumpNoPushY;
+    int dpadleftX;
+    int dpadleftY;
     int charPositionX;
     int charPositionY;
     int enemyRobbieX;
@@ -45,6 +47,8 @@ public class GameActivity extends Activity {
 
     int jumpNoPushBlockX;
     int jumpNoPushBlockY;
+    int dpadleftBlockX;
+    int dpadleftBlockY;
     int charBlockPositionX;
     int charBlockPositionY;
     int enemyRobbieBlockX;
@@ -63,6 +67,8 @@ public class GameActivity extends Activity {
     int grassPlatformBlockHeight;
     int jumpNoPushBlockWidth;
     int jumpNoPushBlockHeight;
+    int dpadLeftBlockWidth;
+    int dpadLeftBlockHeight;
 
     boolean charMoveLeft;
     boolean charMoveRight;
@@ -83,6 +89,8 @@ public class GameActivity extends Activity {
     int roundedGrassPlatformHeight;
     int roundedJumpNoPushWidth;
     int roundedJumpNoPushHeight;
+    int roundedDpadLeftWidth;
+    int roundedDpadLeftHeight;
 
     boolean noPush = true;
 
@@ -101,6 +109,7 @@ public class GameActivity extends Activity {
     Bitmap grassPlatformBitmap;
     Bitmap enemyRobbieBitmap;
     Bitmap jumpNoPushBitmap, jumpPushBitmap;
+    Bitmap dpadLeftBitmap;
     Bitmap charBitmap0, charBitmap1, charBitmap2, charBitmap3, charBitmap4, charBitmap5, charBitmap6, charBitmap7, charBitmap8, charBitmap9;
     Bitmap charWalkBitmap0,charWalkBitmap1,charWalkBitmap2,charWalkBitmap3,charWalkBitmap4,charWalkBitmap5,charWalkBitmap6,charWalkBitmap7,charWalkBitmap8,charWalkBitmap9;
     Bitmap[] charBitmapArray;
@@ -127,6 +136,8 @@ public class GameActivity extends Activity {
 
         jumpNoPushBlockX = 350;
         jumpNoPushBlockY = numBlocksHigh - mysteriousBottomGapBlock - 50;
+        dpadleftBlockX = 50;
+        dpadleftBlockY = numBlocksHigh - mysteriousBottomGapBlock -50;
         charBlockPositionX = 200;
         charBlockPositionY = 0;
         enemyRobbieBlockX = 360;
@@ -352,7 +363,8 @@ public class GameActivity extends Activity {
             }
      */
 
-
+            dpadleftX = (int) Math.round(dpadleftBlockX * blockSize);
+            dpadleftY = (int) Math.round(dpadleftBlockY * blockSize);
             charPositionX = (int) Math.round(charBlockPositionX * blockSize);
             charPositionY = (int) Math.round(charBlockPositionY * blockSize);
             enemyRobbieX = (int) Math.round(enemyRobbieBlockX * blockSize);
@@ -430,6 +442,7 @@ public class GameActivity extends Activity {
                     }
                 }
 
+                canvas.drawBitmap(dpadLeftBitmap, dpadleftX, dpadleftY, paint);
                 //if the button is not being pushed down
                 if (noPush) {
                     canvas.drawBitmap(jumpNoPushBitmap, jumpNoPushX, jumpNoPushY, paint);
@@ -501,7 +514,7 @@ public class GameActivity extends Activity {
                         //firstTouchCycle = true;
 
                     }
-                    if ((motionEvent.getX() <= screenWidth / 2) && !generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), jumpNoPushX, jumpNoPushY, jumpNoPushBlockWidth, jumpNoPushBlockHeight)) {
+                    if (generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), dpadleftX, dpadleftY, dpadLeftBlockWidth, dpadLeftBlockHeight)){
                         charMoveLeft = true;
                         charMoveRight = false;
                         //firstTouchCycle = true;
@@ -587,6 +600,8 @@ public class GameActivity extends Activity {
         grassPlatformBlockHeight = 18;
         jumpNoPushBlockWidth = 40;
         jumpNoPushBlockHeight = 40;
+        dpadLeftBlockWidth = 40;
+        dpadLeftBlockHeight = 40;
 
 
         roundedCharWidth = (int) Math.round(blockSize * charBlockWidth);
@@ -597,6 +612,8 @@ public class GameActivity extends Activity {
         roundedGrassPlatformHeight = (int) Math.round(blockSize * grassPlatformBlockHeight);
         roundedJumpNoPushWidth = (int) Math.round(blockSize * jumpNoPushBlockWidth);
         roundedJumpNoPushHeight = (int) Math.round(blockSize * jumpNoPushBlockHeight);
+        roundedDpadLeftHeight = (int) Math.round(blockSize * dpadLeftBlockWidth);
+        roundedDpadLeftWidth = (int) Math.round(blockSize * dpadLeftBlockHeight);
 
         ground1 = numBlocksHigh - 30;
 
@@ -624,6 +641,7 @@ public class GameActivity extends Activity {
         grassPlatformBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.grassplatform);
         jumpNoPushBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.jumpnopush);
         jumpPushBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.jumppush);
+        dpadLeftBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dpadleft);
         enemyRobbieBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lazytownrobbie);
 
 
@@ -651,6 +669,8 @@ public class GameActivity extends Activity {
         grassPlatformBitmap = Bitmap.createScaledBitmap(grassPlatformBitmap, roundedGrassPlatformWidth, roundedGrassPlatformHeight, false);
         jumpNoPushBitmap = Bitmap.createScaledBitmap(jumpNoPushBitmap,roundedJumpNoPushWidth, roundedJumpNoPushHeight, false);
         jumpPushBitmap = Bitmap.createScaledBitmap(jumpPushBitmap,roundedJumpNoPushWidth, roundedJumpNoPushHeight, false);
+        dpadLeftBitmap = Bitmap.createScaledBitmap(dpadLeftBitmap,roundedDpadLeftWidth,roundedDpadLeftHeight, false);
+
         enemyRobbieBitmap = Bitmap.createScaledBitmap(enemyRobbieBitmap,roundedRobbieWidth, roundedRobbieHeight, false);
 
 
