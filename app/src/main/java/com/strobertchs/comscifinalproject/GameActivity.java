@@ -3,8 +3,6 @@ package com.strobertchs.comscifinalproject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,9 +10,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.Rect;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -22,9 +17,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
-import java.io.IOException;
-import java.util.Random;
 
 public class GameActivity extends Activity {
 
@@ -295,13 +287,13 @@ public class GameActivity extends Activity {
             // "charPosition.x < numBlocksWide - charWidth" restricts it from going any further to the right
             if (charMoveRight && (charBlockPositionX < (numBlocksWide - charBlockWidth))) {
                 //move char right by 7
-                charBlockPositionX = charBlockPositionX + 7;
+                charBlockPositionX = charBlockPositionX + 3;
             }
 
             // "charPosition.x > 0" restricts it from going any further to the left of it is smaller than 0
             if (charMoveLeft && (charBlockPositionX > 0)) {
                 //move char left by 7
-                charBlockPositionX = charBlockPositionX - 7;
+                charBlockPositionX = charBlockPositionX - 3;
             }
 
             //call the jumpIfApplicable method
@@ -327,7 +319,7 @@ public class GameActivity extends Activity {
             }
 
             if (enemyRobbieMoveLeft){
-                enemyRobbieBlockX = enemyRobbieBlockX - 5;
+                enemyRobbieBlockX = enemyRobbieBlockX - 3;
             }
 
             if (enemyRobbieBlockX < 0){
@@ -335,7 +327,7 @@ public class GameActivity extends Activity {
             }
 
             if (!enemyRobbieMoveLeft){
-                enemyRobbieBlockX = enemyRobbieBlockX + 5;
+                enemyRobbieBlockX = enemyRobbieBlockX + 3;
             }
 
             //collision detection between the char and enemyrobbie
@@ -459,10 +451,11 @@ public class GameActivity extends Activity {
         }
 
         public void controlFPS() {
+            int FPS = 120;
             long timeThisFrame = (System.currentTimeMillis() - lastFrameTime);
-            long timeToSleep = 100 - timeThisFrame;
+            long timeToSleep = 100 - FPS;
             if (timeThisFrame > 0) {
-                fps = (int) (1000 / timeThisFrame);
+                fps = (int) (1000 / FPS);
             }
             if (timeToSleep > 0) {
 

@@ -40,6 +40,9 @@ public class MainActivity extends Activity {
     int fps;
     int hi;
 
+    //fps 60 variable
+    private int FPS = 60;
+
     //To start the game from onTouchEvent
     Intent i;
 
@@ -132,9 +135,9 @@ public class MainActivity extends Activity {
 
         public void controlFPS() {
             long timeThisFrame = (System.currentTimeMillis() - lastFrameTime);
-            long timeToSleep = 100 - timeThisFrame;
+            long timeToSleep = 100 - FPS;
             if (timeThisFrame > 0) {
-                fps = (int) (1000 / timeThisFrame);
+                fps = (int) (1000 / FPS);
             }
             if (timeToSleep > 0) {
 
