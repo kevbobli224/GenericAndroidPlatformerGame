@@ -28,6 +28,8 @@ public class GameActivity extends Activity {
     int jumpNoPushY;
     int dpadleftX;
     int dpadleftY;
+    int dpadRightX;
+    int dpadRightY;
     int charPositionX;
     int charPositionY;
     int enemyRobbieX;
@@ -41,6 +43,8 @@ public class GameActivity extends Activity {
     int jumpNoPushBlockY;
     int dpadleftBlockX;
     int dpadleftBlockY;
+    int dpadRightBlockX;
+    int dpadRightBlockY;
     int charBlockPositionX;
     int charBlockPositionY;
     int enemyRobbieBlockX;
@@ -61,6 +65,8 @@ public class GameActivity extends Activity {
     int jumpNoPushBlockHeight;
     int dpadLeftBlockWidth;
     int dpadLeftBlockHeight;
+    int dpadRightBlockWidth;
+    int dpadRightBlockHeight;
 
     boolean charMoveLeft;
     boolean charMoveRight;
@@ -83,6 +89,8 @@ public class GameActivity extends Activity {
     int roundedJumpNoPushHeight;
     int roundedDpadLeftWidth;
     int roundedDpadLeftHeight;
+    int roundedDpadRightWidth;
+    int roundedDpadRightHeight;
 
     boolean noPush = true;
 
@@ -102,6 +110,7 @@ public class GameActivity extends Activity {
     Bitmap enemyRobbieBitmap;
     Bitmap jumpNoPushBitmap, jumpPushBitmap;
     Bitmap dpadLeftBitmap;
+    Bitmap dpadRightBitmap;
     Bitmap charBitmap0, charBitmap1, charBitmap2, charBitmap3, charBitmap4, charBitmap5, charBitmap6, charBitmap7, charBitmap8, charBitmap9;
     Bitmap charWalkBitmap0,charWalkBitmap1,charWalkBitmap2,charWalkBitmap3,charWalkBitmap4,charWalkBitmap5,charWalkBitmap6,charWalkBitmap7,charWalkBitmap8,charWalkBitmap9;
     Bitmap[] charBitmapArray;
@@ -128,8 +137,10 @@ public class GameActivity extends Activity {
 
         jumpNoPushBlockX = 350;
         jumpNoPushBlockY = numBlocksHigh - mysteriousBottomGapBlock - 50;
-        dpadleftBlockX = 50;
+        dpadleftBlockX = 0;
         dpadleftBlockY = numBlocksHigh - mysteriousBottomGapBlock -50;
+        dpadRightBlockX = 30;
+        dpadRightBlockY = numBlocksHigh - mysteriousBottomGapBlock - 50;
         charBlockPositionX = 200;
         charBlockPositionY = 0;
         enemyRobbieBlockX = 360;
@@ -357,6 +368,8 @@ public class GameActivity extends Activity {
 
             dpadleftX = (int) Math.round(dpadleftBlockX * blockSize);
             dpadleftY = (int) Math.round(dpadleftBlockY * blockSize);
+            dpadRightX = (int) Math.round(dpadRightBlockX * blockSize);
+            dpadRightY = (int) Math.round(dpadRightBlockY * blockSize);
             charPositionX = (int) Math.round(charBlockPositionX * blockSize);
             charPositionY = (int) Math.round(charBlockPositionY * blockSize);
             enemyRobbieX = (int) Math.round(enemyRobbieBlockX * blockSize);
@@ -501,7 +514,7 @@ public class GameActivity extends Activity {
                         charMoveUp = true;
                     }
                     */
-                    if ((motionEvent.getX() >= screenWidth / 2) && !generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), jumpNoPushX, jumpNoPushY, jumpNoPushBlockWidth, jumpNoPushBlockHeight)) {
+                    if (generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), dpadRightX, dpadRightY, dpadRightBlockWidth, dpadRightBlockHeight)) {
                         charMoveRight = true;
                         charMoveLeft = false;
                         //firstTouchCycle = true;
@@ -595,6 +608,8 @@ public class GameActivity extends Activity {
         jumpNoPushBlockHeight = 40;
         dpadLeftBlockWidth = 40;
         dpadLeftBlockHeight = 40;
+        dpadRightBlockHeight = 40;
+        dpadRightBlockWidth = 40;
 
 
         roundedCharWidth = (int) Math.round(blockSize * charBlockWidth);
@@ -607,6 +622,8 @@ public class GameActivity extends Activity {
         roundedJumpNoPushHeight = (int) Math.round(blockSize * jumpNoPushBlockHeight);
         roundedDpadLeftHeight = (int) Math.round(blockSize * dpadLeftBlockWidth);
         roundedDpadLeftWidth = (int) Math.round(blockSize * dpadLeftBlockHeight);
+        roundedDpadRightHeight = (int) Math.round(blockSize * dpadRightBlockHeight);
+        roundedDpadRightWidth = (int) Math.round(blockSize * dpadRightBlockWidth);
 
         ground1 = numBlocksHigh - 30;
 
@@ -635,6 +652,7 @@ public class GameActivity extends Activity {
         jumpNoPushBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.jumpnopush);
         jumpPushBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.jumppush);
         dpadLeftBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dpadleft);
+        dpadRightBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dpadright);
         enemyRobbieBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lazytownrobbie);
 
 
@@ -663,6 +681,7 @@ public class GameActivity extends Activity {
         jumpNoPushBitmap = Bitmap.createScaledBitmap(jumpNoPushBitmap,roundedJumpNoPushWidth, roundedJumpNoPushHeight, false);
         jumpPushBitmap = Bitmap.createScaledBitmap(jumpPushBitmap,roundedJumpNoPushWidth, roundedJumpNoPushHeight, false);
         dpadLeftBitmap = Bitmap.createScaledBitmap(dpadLeftBitmap,roundedDpadLeftWidth,roundedDpadLeftHeight, false);
+        dpadRightBitmap = Bitmap.createScaledBitmap(dpadRightBitmap, roundedDpadRightWidth, roundedDpadRightHeight, false);
 
         enemyRobbieBitmap = Bitmap.createScaledBitmap(enemyRobbieBitmap,roundedRobbieWidth, roundedRobbieHeight, false);
 
