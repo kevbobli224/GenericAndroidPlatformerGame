@@ -139,7 +139,7 @@ public class GameActivity extends Activity {
         jumpNoPushBlockY = numBlocksHigh - mysteriousBottomGapBlock - 50;
         dpadleftBlockX = 0;
         dpadleftBlockY = numBlocksHigh - mysteriousBottomGapBlock -50;
-        dpadRightBlockX = 30;
+        dpadRightBlockX = 40;
         dpadRightBlockY = numBlocksHigh - mysteriousBottomGapBlock - 50;
         charBlockPositionX = 200;
         charBlockPositionY = 0;
@@ -448,6 +448,7 @@ public class GameActivity extends Activity {
                 }
 
                 canvas.drawBitmap(dpadLeftBitmap, dpadleftX, dpadleftY, paint);
+                canvas.drawBitmap(dpadRightBitmap, dpadRightX, dpadRightY, paint);
                 //if the button is not being pushed down
                 if (noPush) {
                     canvas.drawBitmap(jumpNoPushBitmap, jumpNoPushX, jumpNoPushY, paint);
@@ -464,7 +465,7 @@ public class GameActivity extends Activity {
         }
 
         public void controlFPS() {
-            int FPS = 120;
+            int FPS = 80;
             long timeThisFrame = (System.currentTimeMillis() - lastFrameTime);
             long timeToSleep = 100 - FPS;
             if (timeThisFrame > 0) {
