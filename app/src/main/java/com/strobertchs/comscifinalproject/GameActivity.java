@@ -112,6 +112,7 @@ public class GameActivity extends Activity {
     Bitmap dpadLeftBitmap;
     Bitmap dpadRightBitmap;
     Bitmap charBitmap0, charBitmap1, charBitmap2, charBitmap3, charBitmap4, charBitmap5, charBitmap6, charBitmap7, charBitmap8, charBitmap9;
+    Bitmap enemyPopBottleBitmap0,enemyPopBottleBitmap1,enemyPopBottleBitmap2,enemyPopBottleBitmap3,enemyPopBottleBitmap4,enemyPopBottleBitmap5,enemyPopBottleBitmap6,enemyPopBottleBitmap7,enemyPopBottleBitmap8,enemyPopBottleBitmap9,enemyPopBottleBitmap10,enemyPopBottleBitmap11,enemyPopBottleBitmap12,enemyPopBottleBitmap13;
     Bitmap charWalkBitmap0,charWalkBitmap1,charWalkBitmap2,charWalkBitmap3,charWalkBitmap4,charWalkBitmap5,charWalkBitmap6,charWalkBitmap7,charWalkBitmap8,charWalkBitmap9;
     Bitmap[] charBitmapArray;
     Bitmap[] charWalkBitmapArray;
@@ -392,7 +393,7 @@ public class GameActivity extends Activity {
             if (ourHolder.getSurface().isValid()) {
                 canvas = ourHolder.lockCanvas();
                 //Paint paint = new Paint();
-                canvas.drawColor(Color.BLACK);//the background
+                canvas.drawColor(Color.WHITE);//the background
                 paint.setColor(Color.argb(255, 255, 255, 255));
                 paint.setTextSize(25);
                 canvas.drawText(charBlockPositionX + ", " + charBlockPositionY +" fps:" + fps +", charFrame: " + charFrame + " numBlocksWide: " + numBlocksWide + " numBlocksHigh: " + numBlocksHigh
@@ -508,8 +509,12 @@ public class GameActivity extends Activity {
                 case MotionEvent.ACTION_DOWN:
 
                     if (generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), jumpNoPushX, jumpNoPushY, jumpNoPushBlockWidth, jumpNoPushBlockHeight)){
+                        //making it so that you can only jump once this is hardcoded for this map specifically for now.
+                        if (noGravity == true || charBlockPositionY == ground1 - charBlockHeight){
                         charMoveUp = true;
-                        noPush = false;
+                        noPush = false;}else{
+                            noPush = false;
+                        }
                 }
                     /*if (motionEvent.getY() <= screenHeight / 2){
                         charMoveUp = true;
@@ -654,6 +659,21 @@ public class GameActivity extends Activity {
         jumpPushBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.jumppush);
         dpadLeftBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dpadleft);
         dpadRightBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dpadright);
+        /*These images causes game to crash
+        enemyPopBottleBitmap0 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle0);
+        enemyPopBottleBitmap1 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle1);
+        enemyPopBottleBitmap2 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle2);
+        enemyPopBottleBitmap3 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle3);
+        enemyPopBottleBitmap4 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle4);
+        enemyPopBottleBitmap5 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle5);
+        enemyPopBottleBitmap6 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle6);
+        enemyPopBottleBitmap7 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle7);
+        enemyPopBottleBitmap8 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle8);
+        enemyPopBottleBitmap9 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle9);
+        enemyPopBottleBitmap10 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle10);
+        enemyPopBottleBitmap11 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle11);
+        enemyPopBottleBitmap12 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle12);
+        enemyPopBottleBitmap13 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle13);*/
         enemyRobbieBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lazytownrobbie);
 
 
