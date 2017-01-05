@@ -30,6 +30,8 @@ public class GameActivity extends Activity {
     int dpadleftY;
     int dpadRightX;
     int dpadRightY;
+    int punchButtonX;
+    int punchButtonY;
     int charPositionX;
     int charPositionY;
     int enemyRobbieX;
@@ -45,6 +47,8 @@ public class GameActivity extends Activity {
     int dpadleftBlockY;
     int dpadRightBlockX;
     int dpadRightBlockY;
+    int punchButtonBlockX;
+    int punchButtonBlockY;
     int charBlockPositionX;
     int charBlockPositionY;
     int enemyRobbieBlockX;
@@ -67,6 +71,8 @@ public class GameActivity extends Activity {
     int dpadLeftBlockHeight;
     int dpadRightBlockWidth;
     int dpadRightBlockHeight;
+    int punchButtonBlockHeight;
+    int punchButtonBlockWidth;
 
     boolean charMoveLeft;
     boolean charMoveRight;
@@ -91,6 +97,8 @@ public class GameActivity extends Activity {
     int roundedDpadLeftHeight;
     int roundedDpadRightWidth;
     int roundedDpadRightHeight;
+    int roundedPunchButtonWidth;
+    int roundedPunchButtonHeight;
 
     boolean noPush = true;
 
@@ -111,9 +119,12 @@ public class GameActivity extends Activity {
     Bitmap jumpNoPushBitmap, jumpPushBitmap;
     Bitmap dpadLeftBitmap;
     Bitmap dpadRightBitmap;
+    Bitmap punchButtonBitmap;
     Bitmap charBitmap0, charBitmap1, charBitmap2, charBitmap3, charBitmap4, charBitmap5, charBitmap6, charBitmap7, charBitmap8, charBitmap9;
     Bitmap enemyPopBottleBitmap0,enemyPopBottleBitmap1,enemyPopBottleBitmap2,enemyPopBottleBitmap3,enemyPopBottleBitmap4,enemyPopBottleBitmap5,enemyPopBottleBitmap6,enemyPopBottleBitmap7,enemyPopBottleBitmap8,enemyPopBottleBitmap9,enemyPopBottleBitmap10,enemyPopBottleBitmap11,enemyPopBottleBitmap12,enemyPopBottleBitmap13;
     Bitmap charWalkBitmap0,charWalkBitmap1,charWalkBitmap2,charWalkBitmap3,charWalkBitmap4,charWalkBitmap5,charWalkBitmap6,charWalkBitmap7,charWalkBitmap8,charWalkBitmap9;
+    Bitmap charJabBitmap0,charJabBitmap1,charJabBitmap2,charJabBitmap3,charJabBitmap4,charJabBitmap5;
+    Bitmap[] charJabBitmapArray;
     Bitmap[] charBitmapArray;
     Bitmap[] charWalkBitmapArray;
 
@@ -142,6 +153,8 @@ public class GameActivity extends Activity {
         dpadleftBlockY = numBlocksHigh - mysteriousBottomGapBlock -50;
         dpadRightBlockX = 40;
         dpadRightBlockY = numBlocksHigh - mysteriousBottomGapBlock - 50;
+        punchButtonBlockX = 300;
+        punchButtonBlockY = numBlocksHigh - mysteriousBottomGapBlock - 50;
         charBlockPositionX = 200;
         charBlockPositionY = 0;
         enemyRobbieBlockX = 360;
@@ -371,6 +384,8 @@ public class GameActivity extends Activity {
             dpadleftY = (int) Math.round(dpadleftBlockY * blockSize);
             dpadRightX = (int) Math.round(dpadRightBlockX * blockSize);
             dpadRightY = (int) Math.round(dpadRightBlockY * blockSize);
+            punchButtonX = (int) Math.round(punchButtonBlockX * blockSize);
+            punchButtonY = (int) Math.round(punchButtonBlockY * blockSize);
             charPositionX = (int) Math.round(charBlockPositionX * blockSize);
             charPositionY = (int) Math.round(charBlockPositionY * blockSize);
             enemyRobbieX = (int) Math.round(enemyRobbieBlockX * blockSize);
@@ -450,6 +465,7 @@ public class GameActivity extends Activity {
 
                 canvas.drawBitmap(dpadLeftBitmap, dpadleftX, dpadleftY, paint);
                 canvas.drawBitmap(dpadRightBitmap, dpadRightX, dpadRightY, paint);
+                canvas.drawBitmap(punchButtonBitmap, punchButtonX, punchButtonY, paint);
                 //if the button is not being pushed down
                 if (noPush) {
                     canvas.drawBitmap(jumpNoPushBitmap, jumpNoPushX, jumpNoPushY, paint);
@@ -531,6 +547,10 @@ public class GameActivity extends Activity {
                         charMoveRight = false;
                         //firstTouchCycle = true;
 
+                    }
+                    //Jab animation when we click the jab button
+                    if (generalButtonTouchEvent(motionEvent.getX(),motionEvent.getY(),punchButtonX,punchButtonY, punchButtonBlockWidth, punchButtonBlockHeight)){
+                        //canvas.drawBitmap(charJabBitmapArray[charFrame], charPositionX, charPositionY, paint);
                     }
 
                     break;
@@ -616,6 +636,8 @@ public class GameActivity extends Activity {
         dpadLeftBlockHeight = 40;
         dpadRightBlockHeight = 40;
         dpadRightBlockWidth = 40;
+        punchButtonBlockWidth = 40;
+        punchButtonBlockHeight = 40;
 
 
         roundedCharWidth = (int) Math.round(blockSize * charBlockWidth);
@@ -630,6 +652,8 @@ public class GameActivity extends Activity {
         roundedDpadLeftWidth = (int) Math.round(blockSize * dpadLeftBlockHeight);
         roundedDpadRightHeight = (int) Math.round(blockSize * dpadRightBlockHeight);
         roundedDpadRightWidth = (int) Math.round(blockSize * dpadRightBlockWidth);
+        roundedPunchButtonHeight = (int) Math.round(blockSize * punchButtonBlockHeight);
+        roundedPunchButtonWidth = (int) Math.round(blockSize * punchButtonBlockWidth);
 
         ground1 = numBlocksHigh - 30;
 
@@ -654,6 +678,13 @@ public class GameActivity extends Activity {
         charWalkBitmap7 = BitmapFactory.decodeResource(getResources(), R.drawable.walk_007);
         charWalkBitmap8 = BitmapFactory.decodeResource(getResources(), R.drawable.walk_008);
         charWalkBitmap9 = BitmapFactory.decodeResource(getResources(), R.drawable.walk_009);
+        //These images causes the game to crash.
+        /*charJabBitmap0 = BitmapFactory.decodeResource(getResources(), R.drawable.jab_000);
+        charJabBitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.jab_001);
+        charJabBitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.jab_002);
+        charJabBitmap3 = BitmapFactory.decodeResource(getResources(), R.drawable.jab_003);
+        charJabBitmap4 = BitmapFactory.decodeResource(getResources(), R.drawable.jab_004);
+        charJabBitmap5 = BitmapFactory.decodeResource(getResources(), R.drawable.jab_005);*/
         grassPlatformBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.grassplatform);
         jumpNoPushBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.jumpnopush);
         jumpPushBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.jumppush);
@@ -675,6 +706,7 @@ public class GameActivity extends Activity {
         enemyPopBottleBitmap12 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle12);
         enemyPopBottleBitmap13 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle13);*/
         enemyRobbieBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lazytownrobbie);
+        punchButtonBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.punchbutton);
 
 
         //scale the bitmaps to match the block size
@@ -698,17 +730,25 @@ public class GameActivity extends Activity {
         charWalkBitmap7 = Bitmap.createScaledBitmap(charWalkBitmap7,roundedCharWidth, roundedCharHeight, false);
         charWalkBitmap8 = Bitmap.createScaledBitmap(charWalkBitmap8,roundedCharWidth, roundedCharHeight, false);
         charWalkBitmap9 = Bitmap.createScaledBitmap(charWalkBitmap9,roundedCharWidth, roundedCharHeight, false);
+        /*charJabBitmap0 = Bitmap.createScaledBitmap(charJabBitmap0,roundedCharWidth,roundedCharHeight, false);
+        charJabBitmap1 = Bitmap.createScaledBitmap(charJabBitmap1,roundedCharWidth,roundedCharHeight, false);
+        charJabBitmap2 = Bitmap.createScaledBitmap(charJabBitmap2,roundedCharWidth,roundedCharHeight, false);
+        charJabBitmap3 = Bitmap.createScaledBitmap(charJabBitmap3,roundedCharWidth,roundedCharHeight, false);
+        charJabBitmap4 = Bitmap.createScaledBitmap(charJabBitmap4,roundedCharWidth,roundedCharHeight, false);
+        charJabBitmap5 = Bitmap.createScaledBitmap(charJabBitmap5,roundedCharWidth,roundedCharHeight, false);*/
         grassPlatformBitmap = Bitmap.createScaledBitmap(grassPlatformBitmap, roundedGrassPlatformWidth, roundedGrassPlatformHeight, false);
         jumpNoPushBitmap = Bitmap.createScaledBitmap(jumpNoPushBitmap,roundedJumpNoPushWidth, roundedJumpNoPushHeight, false);
         jumpPushBitmap = Bitmap.createScaledBitmap(jumpPushBitmap,roundedJumpNoPushWidth, roundedJumpNoPushHeight, false);
         dpadLeftBitmap = Bitmap.createScaledBitmap(dpadLeftBitmap,roundedDpadLeftWidth,roundedDpadLeftHeight, false);
         dpadRightBitmap = Bitmap.createScaledBitmap(dpadRightBitmap, roundedDpadRightWidth, roundedDpadRightHeight, false);
+        punchButtonBitmap = Bitmap.createScaledBitmap(punchButtonBitmap,roundedPunchButtonWidth,roundedPunchButtonHeight,false);
 
         enemyRobbieBitmap = Bitmap.createScaledBitmap(enemyRobbieBitmap,roundedRobbieWidth, roundedRobbieHeight, false);
 
 
         charBitmapArray = new Bitmap[]{charBitmap0, charBitmap1, charBitmap2, charBitmap3, charBitmap4, charBitmap5, charBitmap6, charBitmap7, charBitmap8, charBitmap9};
         charWalkBitmapArray = new Bitmap[]{charWalkBitmap0, charWalkBitmap1, charWalkBitmap2, charWalkBitmap3, charWalkBitmap4, charWalkBitmap5, charWalkBitmap6, charWalkBitmap7, charWalkBitmap8, charWalkBitmap9};
+        //charJabBitmapArray = new Bitmap[]{charJabBitmap0,charJabBitmap1,charJabBitmap2,charJabBitmap3,charJabBitmap4,charJabBitmap5};
 
     }
 
