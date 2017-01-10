@@ -42,6 +42,8 @@ public class GameActivity extends Activity {
     int grassPlatform2Y;
     int portalX;
     int portalY;
+    int enemyBottleX;
+    int enemyBottleY;
 
     int jumpNoPushBlockX;
     int jumpNoPushBlockY;
@@ -61,6 +63,8 @@ public class GameActivity extends Activity {
     int grassPlatform2BlockY;
     int portalBlockX;
     int portalBlockY;
+    int enemyBottleBlockX;
+    int enemyBottleBlockY;
 
     int charBlockWidth;
     int charBlockHeight;
@@ -79,6 +83,8 @@ public class GameActivity extends Activity {
     int punchButtonBlockWidth;
     int portalBlockHeight;
     int portalBlockWidth;
+    int enemyBottleHeight;
+    int enemyBottleWidth;
 
     boolean charMoveLeft;
     boolean charMoveRight;
@@ -87,6 +93,7 @@ public class GameActivity extends Activity {
     boolean charJab;
     boolean enemyRobbieMoveLeft = true;
     boolean enemiesDefeated = false;
+    boolean enemyBottleMoveLeft = true;
 
     double blockSize;
     int numBlocksWide;
@@ -109,6 +116,8 @@ public class GameActivity extends Activity {
     int roundedPunchButtonHeight;
     int roundedPortalWidth;
     int roundedPortalHeight;
+    int roundedEnemyBottleWidth;
+    int roundedEnemyBottleHeight;
 
     boolean noPush = true;
 
@@ -130,12 +139,13 @@ public class GameActivity extends Activity {
     Bitmap portalBitmap;
     Bitmap punchButtonBitmap;
     Bitmap charBitmap0, charBitmap1, charBitmap2, charBitmap3, charBitmap4, charBitmap5, charBitmap6, charBitmap7, charBitmap8, charBitmap9;
-    Bitmap enemyPopBottleBitmap0,enemyPopBottleBitmap1,enemyPopBottleBitmap2,enemyPopBottleBitmap3,enemyPopBottleBitmap4,enemyPopBottleBitmap5,enemyPopBottleBitmap6,enemyPopBottleBitmap7,enemyPopBottleBitmap8,enemyPopBottleBitmap9,enemyPopBottleBitmap10,enemyPopBottleBitmap11,enemyPopBottleBitmap12,enemyPopBottleBitmap13;
+    Bitmap enemyPopBottleBitmap0,enemyPopBottleBitmap1,enemyPopBottleBitmap2,enemyPopBottleBitmap3,enemyPopBottleBitmap4,enemyPopBottleBitmap5,enemyPopBottleBitmap6,enemyPopBottleBitmap7,enemyPopBottleBitmap8,enemyPopBottleBitmap9;
     Bitmap charWalkBitmap0,charWalkBitmap1,charWalkBitmap2,charWalkBitmap3,charWalkBitmap4,charWalkBitmap5,charWalkBitmap6,charWalkBitmap7,charWalkBitmap8,charWalkBitmap9;
     Bitmap charJabBitmap0,charJabBitmap1,charJabBitmap2,charJabBitmap3,charJabBitmap4,charJabBitmap5,charJabBitmap6,charJabBitmap7,charJabBitmap8,charJabBitmap9;
     Bitmap[] charJabBitmapArray;
     Bitmap[] charBitmapArray;
     Bitmap[] charWalkBitmapArray;
+    Bitmap[] enemyBottleBitmapArray;
 
     int charFrame = 0;
 
@@ -174,6 +184,8 @@ public class GameActivity extends Activity {
         grassPlatformBlockY = 150;
         grassPlatform2BlockX = 100;
         grassPlatform2BlockY = 100;
+        enemyBottleX = 360;
+        enemyBottleY = 0;
 
 
     }
@@ -334,6 +346,9 @@ public class GameActivity extends Activity {
                 charBlockPositionX = charBlockPositionX - 3;
             }
 
+            //Jabbing causes movement and also restricts the character from going off screen
+
+
             //call the jumpIfApplicable method
             jumpIfApplicable();
 
@@ -411,8 +426,8 @@ public class GameActivity extends Activity {
             grassPlatform2Y = (int) Math.round(grassPlatform2BlockY * blockSize);
             jumpNoPushX = (int) Math.round(jumpNoPushBlockX * blockSize);
             jumpNoPushY = (int) Math.round(jumpNoPushBlockY * blockSize);
-            enemyRobbieX = (int) Math.round(enemyRobbieBlockX * blockSize);
-            enemyRobbieY = (int) Math.round(enemyRobbieBlockY * blockSize);
+            enemyBottleX = (int) Math.round(enemyBottleX * blockSize);
+            enemyBottleY = (int) Math.round(enemyBottleY * blockSize);
 
 
 
@@ -453,7 +468,13 @@ public class GameActivity extends Activity {
                     if (charMoveRight) {
                         canvas.drawBitmap(charWalkBitmapArray[charFrame], charPositionX, charPositionY, paint);
                     } else if (charJab) {
+                        if(charBlockPositionX < (numBlocksWide - charBlockWidth)){
+                            charBlockPositionX = charBlockPositionX + 3;
+                        }
                         canvas.drawBitmap(charJabBitmapArray[charFrame], charPositionX, charPositionY, paint);
+
+
+
                     } else {
                         canvas.drawBitmap(charBitmapArray[charFrame], charPositionX, charPositionY, paint);
                     }
@@ -466,17 +487,22 @@ public class GameActivity extends Activity {
                         //firstTouchCycle = false;
                     }
                     */
-
+                    //Flipping the character when facing to the left
                     Matrix flipHorizontalMatrix = new Matrix();
                     flipHorizontalMatrix.setScale(-1,1);
                     charPositionX = charPositionX + (int) Math.round(charBlockWidth * blockSize);
                     flipHorizontalMatrix.postTranslate(charPositionX, charPositionY);
 
+
                     if (charMoveLeft){
                         canvas.drawBitmap(charWalkBitmapArray[charFrame], flipHorizontalMatrix, paint);
                     }
                     else if (charJab){
+                        if(charBlockPositionX > 0) {
+                            charBlockPositionX = charBlockPositionX - 3;
+                        }
                         canvas.drawBitmap(charJabBitmapArray[charFrame], flipHorizontalMatrix, paint);
+
                     }
                     else {
                         canvas.drawBitmap(charBitmapArray[charFrame], flipHorizontalMatrix, paint);
@@ -486,6 +512,7 @@ public class GameActivity extends Activity {
                 canvas.drawBitmap(dpadLeftBitmap, dpadleftX, dpadleftY, paint);
                 canvas.drawBitmap(dpadRightBitmap, dpadRightX, dpadRightY, paint);
                 canvas.drawBitmap(punchButtonBitmap, punchButtonX, punchButtonY, paint);
+
                 //if the button is not being pushed down
                 if (noPush) {
                     canvas.drawBitmap(jumpNoPushBitmap, jumpNoPushX, jumpNoPushY, paint);
@@ -494,7 +521,7 @@ public class GameActivity extends Activity {
                 if (!noPush){
                     canvas.drawBitmap(jumpPushBitmap, jumpNoPushX, jumpNoPushY, paint);
                 }
-                canvas.drawBitmap(enemyRobbieBitmap, enemyRobbieX, enemyRobbieY, paint);
+
                 ourHolder.unlockCanvasAndPost(canvas);
 
             }
@@ -548,7 +575,9 @@ public class GameActivity extends Activity {
                         //making it so that you can only jump once this is hardcoded for this map specifically for now.
                         if (noGravity == true || charBlockPositionY == ground1 - charBlockHeight){
                         charMoveUp = true;
-                        noPush = false;}else{
+                        noPush = false;
+                        }
+                        else{
                             noPush = false;
                         }
                 }
@@ -556,6 +585,7 @@ public class GameActivity extends Activity {
                         charMoveUp = true;
                     }
                     */
+                    //move right
                     if (generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), dpadRightX, dpadRightY, dpadRightBlockWidth, dpadRightBlockHeight)) {
                         charMoveRight = true;
                         charMoveLeft = false;
@@ -563,6 +593,7 @@ public class GameActivity extends Activity {
                         //firstTouchCycle = true;
 
                     }
+                    //move left
                     if (generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), dpadleftX, dpadleftY, dpadLeftBlockWidth, dpadLeftBlockHeight)){
                         charMoveLeft = true;
                         charMoveRight = false;
@@ -575,6 +606,7 @@ public class GameActivity extends Activity {
                         charMoveRight = false;
                         charMoveLeft = false;
                         charJab = true;
+
                     }
 
                     break;
