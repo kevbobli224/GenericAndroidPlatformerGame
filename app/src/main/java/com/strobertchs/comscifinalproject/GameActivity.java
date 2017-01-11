@@ -112,7 +112,6 @@ public class GameActivity extends Activity {
     boolean noPush = true;
 
     boolean noFlip = true;
-    boolean firstTouchCycle = false;
 
     int ground1;
     boolean noGravity = false;
@@ -169,8 +168,8 @@ public class GameActivity extends Activity {
         charBlockPositionY = 0;
         enemyRobbieBlockX = 360;
         enemyRobbieBlockY = 0;
-        //portalBlockX = 325;
-        //portalBlockY = 103;
+        portalBlockX = 325;
+        portalBlockY = 103;
         grassPlatformBlockX = 250;
         grassPlatformBlockY = 150;
         grassPlatform2BlockX = 100;
@@ -398,8 +397,8 @@ public class GameActivity extends Activity {
             dpadleftY = (int) Math.round(dpadleftBlockY * blockSize);
             dpadRightX = (int) Math.round(dpadRightBlockX * blockSize);
             dpadRightY = (int) Math.round(dpadRightBlockY * blockSize);
-            //portalX = (int) Math.round(portalBlockX * blockSize);
-           // portalY = (int) Math.round(portalBlockY * blockSize);
+            portalX = (int) Math.round(portalBlockX * blockSize);
+            portalY = (int) Math.round(portalBlockY * blockSize);
             punchButtonX = (int) Math.round(punchButtonBlockX * blockSize);
             punchButtonY = (int) Math.round(punchButtonBlockY * blockSize);
             charPositionX = (int) Math.round(charBlockPositionX * blockSize);
@@ -545,7 +544,9 @@ public class GameActivity extends Activity {
                         //making it so that you can only jump once this is hardcoded for this map specifically for now.
                         if (noGravity == true || charBlockPositionY == ground1 - charBlockHeight){
                         charMoveUp = true;
-                        noPush = false;}else{
+                        noPush = false;
+                        }
+                        else{
                             noPush = false;
                         }
                 }
@@ -653,8 +654,8 @@ public class GameActivity extends Activity {
         dpadLeftBlockHeight = 40;
         dpadRightBlockHeight = 40;
         dpadRightBlockWidth = 40;
-        //portalBlockHeight = 50;
-        //portalBlockWidth = 30;
+        portalBlockHeight = 50;
+        portalBlockWidth = 30;
         punchButtonBlockWidth = 40;
         punchButtonBlockHeight = 40;
 
@@ -671,8 +672,8 @@ public class GameActivity extends Activity {
         roundedDpadLeftWidth = (int) Math.round(blockSize * dpadLeftBlockHeight);
         roundedDpadRightHeight = (int) Math.round(blockSize * dpadRightBlockHeight);
         roundedDpadRightWidth = (int) Math.round(blockSize * dpadRightBlockWidth);
-        //roundedPortalHeight = (int) Math.round(blockSize * portalBlockHeight);
-        //roundedPortalWidth = (int) Math.round(blockSize * portalBlockHeight);
+        roundedPortalHeight = (int) Math.round(blockSize * portalBlockHeight);
+        roundedPortalWidth = (int) Math.round(blockSize * portalBlockHeight);
         roundedPunchButtonHeight = (int) Math.round(blockSize * punchButtonBlockHeight);
         roundedPunchButtonWidth = (int) Math.round(blockSize * punchButtonBlockWidth);
 
@@ -711,7 +712,7 @@ public class GameActivity extends Activity {
         jumpPushBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.jumppush);
         dpadLeftBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dpadleft);
         dpadRightBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dpadright);
-        //portalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.portal);
+        portalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.portal);
         /*These images causes game to crash
         enemyPopBottleBitmap0 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle0);
         enemyPopBottleBitmap1 = BitmapFactory.decodeResource(getResources(),R.drawable.walkbottle1);
@@ -763,7 +764,7 @@ public class GameActivity extends Activity {
         jumpPushBitmap = Bitmap.createScaledBitmap(jumpPushBitmap,roundedJumpNoPushWidth, roundedJumpNoPushHeight, false);
         dpadLeftBitmap = Bitmap.createScaledBitmap(dpadLeftBitmap,roundedDpadLeftWidth,roundedDpadLeftHeight, false);
         dpadRightBitmap = Bitmap.createScaledBitmap(dpadRightBitmap, roundedDpadRightWidth, roundedDpadRightHeight, false);
-        //portalBitmap = Bitmap.createScaledBitmap(portalBitmap, roundedPortalWidth, roundedPortalHeight, false);
+        portalBitmap = Bitmap.createScaledBitmap(portalBitmap, roundedPortalWidth, roundedPortalHeight, false);
         punchButtonBitmap = Bitmap.createScaledBitmap(punchButtonBitmap,roundedPunchButtonWidth,roundedPunchButtonHeight,false);
 
         enemyRobbieBitmap = Bitmap.createScaledBitmap(enemyRobbieBitmap,roundedRobbieWidth, roundedRobbieHeight, false);
@@ -771,7 +772,7 @@ public class GameActivity extends Activity {
 
         charBitmapArray = new Bitmap[]{charBitmap0, charBitmap1, charBitmap2, charBitmap3, charBitmap4, charBitmap5, charBitmap6, charBitmap7, charBitmap8, charBitmap9};
         charWalkBitmapArray = new Bitmap[]{charWalkBitmap0, charWalkBitmap1, charWalkBitmap2, charWalkBitmap3, charWalkBitmap4, charWalkBitmap5, charWalkBitmap6, charWalkBitmap7, charWalkBitmap8, charWalkBitmap9};
-        //charJabBitmapArray = new Bitmap[]{charJabBitmap0,charJabBitmap1,charJabBitmap2,charJabBitmap3,charJabBitmap4,charJabBitmap5};
+        charJabBitmapArray = new Bitmap[]{charJabBitmap0,charJabBitmap1,charJabBitmap2,charJabBitmap3,charJabBitmap4,charJabBitmap5};
 
     }
 
