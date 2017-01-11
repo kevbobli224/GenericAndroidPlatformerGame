@@ -304,6 +304,7 @@ public class GameActivity extends Activity {
 
                 if(charFrame > 9){
                     charFrame = 0;
+                    charJab = false;
                 }
 
             }
@@ -346,7 +347,7 @@ public class GameActivity extends Activity {
                 charBlockPositionX = charBlockPositionX - 3;
             }
 
-            //Jabbing causes movement and also restricts the character from going off screen
+
 
 
             //call the jumpIfApplicable method
@@ -472,9 +473,6 @@ public class GameActivity extends Activity {
                             charBlockPositionX = charBlockPositionX + 3;
                         }
                         canvas.drawBitmap(charJabBitmapArray[charFrame], charPositionX, charPositionY, paint);
-
-
-
                     } else {
                         canvas.drawBitmap(charBitmapArray[charFrame], charPositionX, charPositionY, paint);
                     }
@@ -497,13 +495,13 @@ public class GameActivity extends Activity {
                     if (charMoveLeft){
                         canvas.drawBitmap(charWalkBitmapArray[charFrame], flipHorizontalMatrix, paint);
                     }
-                    else if (charJab){
-                        if(charBlockPositionX > 0) {
+                    else if (charJab) {
+                        if (charBlockPositionX > 0) {
                             charBlockPositionX = charBlockPositionX - 3;
                         }
                         canvas.drawBitmap(charJabBitmapArray[charFrame], flipHorizontalMatrix, paint);
-
                     }
+
                     else {
                         canvas.drawBitmap(charBitmapArray[charFrame], flipHorizontalMatrix, paint);
                     }
