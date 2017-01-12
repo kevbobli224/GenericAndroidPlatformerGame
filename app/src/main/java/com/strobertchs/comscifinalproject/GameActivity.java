@@ -21,6 +21,7 @@ import android.view.SurfaceView;
 public class GameActivity extends Activity {
 
     int temp;
+    int jabTime;
     int screenWidth;
     int screenHeight;
 
@@ -571,7 +572,7 @@ public class GameActivity extends Activity {
                 case MotionEvent.ACTION_DOWN:
 
                     if (generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), jumpNoPushX, jumpNoPushY, jumpNoPushBlockWidth, jumpNoPushBlockHeight)){
-                        //making it so that you can only jump once this is hardcoded for this map specifically for now.
+                        //making it so that you can only jump once this 702-3453251-5641836is hardcoded for this map specifically for now.
                         if (noGravity == true || charBlockPositionY == ground1 - charBlockHeight){
                         charMoveUp = true;
                         noPush = false;
