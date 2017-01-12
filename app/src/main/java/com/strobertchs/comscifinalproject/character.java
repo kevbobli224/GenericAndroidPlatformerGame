@@ -7,6 +7,7 @@ package com.strobertchs.comscifinalproject;
 public class character extends GameActivity{
     //constructor for new characters gives rounded block values when x,y,height,width values are entered
     //THIS IS ALL WE NEEDED TO DO CHARLES NOT MAKE 1000000 VARIABLES AHHHHHHHHHHH - Gilbert
+    //Hi, I'm helping -Darius
     int positionX;
     int positionY;
     int height;
@@ -17,6 +18,7 @@ public class character extends GameActivity{
         this.positionY = (int) Math.round(blockSize * positionY);
         this.height = (int) Math.round(blockSize * height);
         this.width = (int) Math.round(blockSize * width);
+
 
 
 

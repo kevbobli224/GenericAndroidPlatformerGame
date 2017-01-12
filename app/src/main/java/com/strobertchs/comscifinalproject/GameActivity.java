@@ -45,14 +45,14 @@ public class GameActivity extends Activity {
     int enemyBottleX;
     int enemyBottleY;
 
-    int jumpNoPushBlockX;
+    /*int jumpNoPushBlockX;
     int jumpNoPushBlockY;
     int dpadleftBlockX;
     int dpadleftBlockY;
     int dpadRightBlockX;
     int dpadRightBlockY;
     int punchButtonBlockX;
-    int punchButtonBlockY;
+    int punchButtonBlockY;*/
     int charBlockPositionX;
     int charBlockPositionY;
     int enemyRobbieBlockX;
@@ -61,10 +61,10 @@ public class GameActivity extends Activity {
     int grassPlatformBlockY;
     int grassPlatform2BlockX;
     int grassPlatform2BlockY;
-    int portalBlockX;
+    /*int portalBlockX;
     int portalBlockY;
     int enemyBottleBlockX;
-    int enemyBottleBlockY;
+    int enemyBottleBlockY;*/
 
     int charBlockWidth;
     int charBlockHeight;
@@ -119,6 +119,7 @@ public class GameActivity extends Activity {
     int roundedEnemyBottleWidth;
     int roundedEnemyBottleHeight;
 
+
     boolean noPush = true;
 
     boolean noFlip = true;
@@ -165,7 +166,7 @@ public class GameActivity extends Activity {
         gameActivityView = new GameActivityView(this);
         setContentView(gameActivityView);
 
-
+        /*
         jumpNoPushBlockX = 350;
         jumpNoPushBlockY = numBlocksHigh - mysteriousBottomGapBlock - 50;
         dpadleftBlockX = 0;
@@ -185,7 +186,7 @@ public class GameActivity extends Activity {
         grassPlatform2BlockX = 100;
         grassPlatform2BlockY = 100;
         enemyBottleX = 360;
-        enemyBottleY = 0;
+        enemyBottleY = 0;*/
 
 
     }
@@ -408,7 +409,7 @@ public class GameActivity extends Activity {
                 noGravity = false;
             }
      */
-
+            /*
             dpadleftX = (int) Math.round(dpadleftBlockX * blockSize);
             dpadleftY = (int) Math.round(dpadleftBlockY * blockSize);
             dpadRightX = (int) Math.round(dpadRightBlockX * blockSize);
@@ -428,7 +429,7 @@ public class GameActivity extends Activity {
             jumpNoPushX = (int) Math.round(jumpNoPushBlockX * blockSize);
             jumpNoPushY = (int) Math.round(jumpNoPushBlockY * blockSize);
             enemyBottleX = (int) Math.round(enemyBottleX * blockSize);
-            enemyBottleY = (int) Math.round(enemyBottleY * blockSize);
+            enemyBottleY = (int) Math.round(enemyBottleY * blockSize);*/
 
 
         }
@@ -677,7 +678,8 @@ public class GameActivity extends Activity {
         numBlocksWide = 400;
         numBlocksHigh = (int) Math.round(screenHeight/blockSize);
 
-        charBlockWidth = 30;
+
+       /* charBlockWidth = 30;
         charBlockHeight = 50;
         enemyRobbieBlockWidth = 33;
         enemyRobbieBlockHeight = 75;
@@ -692,10 +694,20 @@ public class GameActivity extends Activity {
         portalBlockHeight = 50;
         portalBlockWidth = 20;
         punchButtonBlockWidth = 40;
-        punchButtonBlockHeight = 40;
+        punchButtonBlockHeight = 40;*/
+
+        character player = new character(200,0,50,30);
+        character enemyRobbie = new character(360,0,75,33);
+        character grassPlatform = new character(250,150,18,100);
+        character jumpNoPush = new character(350,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40);
+        character dpadLeft = new character(0,numBlocksHigh - mysteriousBottomGapBlock -50,40,40);
+        character dpadRight = new character(40,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40);
+        character portal = new character(290,103,50,20);
+        character punchButton = new character(300,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40);
 
 
-        roundedCharWidth = (int) Math.round(blockSize * charBlockWidth);
+
+        /*roundedCharWidth = (int) Math.round(blockSize * charBlockWidth);
         roundedCharHeight = (int) Math.round(blockSize * charBlockHeight);
         roundedRobbieWidth = (int) Math.round(blockSize * enemyRobbieBlockWidth);
         roundedRobbieHeight = (int) Math.round(blockSize * enemyRobbieBlockHeight);
@@ -710,7 +722,7 @@ public class GameActivity extends Activity {
         roundedPortalHeight = (int) Math.round(blockSize * portalBlockHeight);
         roundedPortalWidth = (int) Math.round(blockSize * portalBlockHeight);
         roundedPunchButtonHeight = (int) Math.round(blockSize * punchButtonBlockHeight);
-        roundedPunchButtonWidth = (int) Math.round(blockSize * punchButtonBlockWidth);
+        roundedPunchButtonWidth = (int) Math.round(blockSize * punchButtonBlockWidth);*/
 
 
         ground1 = numBlocksHigh - 30;
