@@ -19,6 +19,22 @@ public class character extends GameActivity{
         this.width = (int) Math.round(blockSize * width);
 
 
+
+    }
+    public int getPositionX(){
+        return positionX;
+    }
+
+    public int getPositionY(){
+        return positionY;
+    }
+
+    public int getHeight(){
+        return height;
+    }
+
+    public int getWidth(){
+        return width;
     }
 }
 

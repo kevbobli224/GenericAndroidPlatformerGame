@@ -712,6 +712,7 @@ public class GameActivity extends Activity {
         roundedPunchButtonHeight = (int) Math.round(blockSize * punchButtonBlockHeight);
         roundedPunchButtonWidth = (int) Math.round(blockSize * punchButtonBlockWidth);
 
+
         ground1 = numBlocksHigh - 30;
 
         //Load bitmaps
