@@ -431,7 +431,6 @@ public class GameActivity extends Activity {
             enemyBottleY = (int) Math.round(enemyBottleY * blockSize);
 
 
-
         }
 
         public void drawGame() {
