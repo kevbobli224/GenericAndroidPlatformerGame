@@ -433,7 +433,6 @@ public class GameActivity extends Activity {
             enemyBottleY = (int) Math.round(enemyBottleY * blockSize);
 
 
-
         }
 
         public void drawGame() {
@@ -716,6 +715,7 @@ public class GameActivity extends Activity {
         roundedPortalWidth = (int) Math.round(blockSize * portalBlockHeight);
         roundedPunchButtonHeight = (int) Math.round(blockSize * punchButtonBlockHeight);
         roundedPunchButtonWidth = (int) Math.round(blockSize * punchButtonBlockWidth);
+
 
         ground1 = numBlocksHigh - 30;
 
