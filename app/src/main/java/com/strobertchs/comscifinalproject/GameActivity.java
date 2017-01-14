@@ -696,7 +696,8 @@ public class GameActivity extends Activity {
         punchButtonBlockWidth = 40;
         punchButtonBlockHeight = 40;*/
 
-        character player = new character(200,0,50,30);
+// GUYS DO WE NEED THE CODE BELOW
+        /*character player = new character(200,0,50,30);
         character enemyRobbie = new character(360,0,75,33);
         character grassPlatform = new character(250,150,18,100);
         character jumpNoPush = new character(350,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40);
@@ -723,6 +724,86 @@ public class GameActivity extends Activity {
         roundedPortalWidth = (int) Math.round(blockSize * portalBlockHeight);
         roundedPunchButtonHeight = (int) Math.round(blockSize * punchButtonBlockHeight);
         roundedPunchButtonWidth = (int) Math.round(blockSize * punchButtonBlockWidth);*/
+
+        character player = new character(200,0,50,30);
+        int charPositionX = player.getPositionX();
+        int charPositionY = player.getPositionY();
+        int roundedCharWidth = player.getRoundedWidth();
+        int roundedCharHeight = player.getRoundedHeight();
+        int charBlockHeight = player.getBlockHeight();
+        int charBlockWidth = player.getBlockWidth();
+        int charBlockX = player.getBlockX();
+        int charBlockY = player.getBlockY();
+
+        character enemyRobbie = new character(360,0,75,33);
+        int robPositionX = enemyRobbie.getPositionX();
+        int robPositionY = enemyRobbie.getPositionY();
+        int roundedRobbieWidth = enemyRobbie.getRoundedWidth();
+        int roundedRobbieHeight = enemyRobbie.getRoundedHeight();
+        int robBlockHeight = enemyRobbie.getBlockHeight();
+        int robBlockWidth = enemyRobbie.getBlockWidth();
+        int robBlockX = enemyRobbie.getBlockX();
+        int robBlockY = enemyRobbie.getBlockY();
+
+        character grassPlatform = new character(250,150,18,100);
+        int grassPositionX = grassPlatform.getPositionX();
+        int grassPositionY = grassPlatform.getPositionY();
+        int roundedGrassPlatformWidth = grassPlatform.getRoundedWidth();
+        int roundedGrassPlatformHeight = grassPlatform.getRoundedHeight();
+        int grassBlockHeight = grassPlatform.getBlockHeight();
+        int grassBlockWidth = grassPlatform.getBlockWidth();
+        int grassBlockX = grassPlatform.getBlockX();
+        int grassBlockY = grassPlatform.getBlockY();
+
+        character jumpNoPush = new character(350,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40);
+        int jumpNoPushPositionX = jumpNoPush.getPositionX();
+        int jumpNoPushPositionY = jumpNoPush.getPositionY();
+        int roundedJumpNoPushWidth = jumpNoPush.getRoundedWidth();
+        int roundedJumpNoPushHeight = jumpNoPush.getRoundedHeight();
+        int jumpNoPushBlockHeight = jumpNoPush.getBlockHeight();
+        int jumpNoPushBlockWidth = jumpNoPush.getBlockWidth();
+        int jumpNoPushBlockX = jumpNoPush.getBlockX();
+        int jumpNoPushBlockY = jumpNoPush.getBlockY();
+
+        character dpadLeft = new character(0,numBlocksHigh - mysteriousBottomGapBlock -50,40,40);
+        int dpadLeftPositionX = dpadLeft.getPositionX();
+        int dpadLeftPositionY = dpadLeft.getPositionY();
+        int roundedDpadLeftWidth = dpadLeft.getRoundedWidth();
+        int roundedDpadLeftHeight = dpadLeft.getRoundedHeight();
+        int dpadLeftBlockHeight = dpadLeft.getBlockHeight();
+        int dpadLeftBlockWidth = dpadLeft.getBlockWidth();
+        int dpadLeftBlockX = dpadLeft.getBlockX();
+        int dpadLeftBlockY = dpadLeft.getBlockY();
+
+        character dpadRight = new character(40,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40);
+        int dpadRightPositionX = dpadRight.getPositionX();
+        int dpadRightPositionY = dpadRight.getPositionY();
+        int roundedDpadRightWidth = dpadRight.getRoundedWidth();
+        int roundedDpadRightHeight = dpadRight.getRoundedHeight();
+        int dpadRightBlockHeight = dpadRight.getBlockHeight();
+        int dpadRightBlockWidth = dpadRight.getBlockWidth();
+        int dpadRightBlockX = dpadRight.getBlockX();
+        int dpadRightBlockY = dpadRight.getBlockY();
+
+        character portal = new character(290,103,50,20);
+        int portalPositionX = portal.getPositionX();
+        int portalPositionY = portal.getPositionY();
+        int roundedPortalWidth = portal.getRoundedWidth();
+        int roundedPortalHeight = portal.getRoundedHeight();
+        int portalBlockHeight = portal.getBlockHeight();
+        int portalBlockWidth = portal.getBlockWidth();
+        int portalBlockX = portal.getBlockX();
+        int portalBlockY = portal.getBlockY();
+
+        character punchButton = new character(300,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40);
+        int punchButtonPositionX = punchButton.getPositionX();
+        int punchButtonPositionY = punchButton.getPositionY();
+        int roundedPunchButtonWidth = punchButton.getRoundedWidth();
+        int roundedPunchButtonHeight = punchButton.getRoundedHeight();
+        int punchButtonBlockHeight = punchButton.getBlockHeight();
+        int punchButtonBlockWidth = punchButton.getBlockWidth();
+        int punchButtonBlockX = punchButton.getBlockX();
+        int punchButtonBlockY = punchButton.getBlockY();
 
 
         ground1 = numBlocksHigh - 30;
