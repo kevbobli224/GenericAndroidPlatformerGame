@@ -717,6 +717,14 @@ public class GameActivity extends Activity {
         roundedPunchButtonWidth = (int) Math.round(blockSize * punchButtonBlockWidth);
 
 
+        character player = new character(20,20,20,20);
+        int charPositionX = player.getPositionX();
+        int charPositionY = player.getPositionY();
+        int roundedCharHeight = player.getHeight();
+        int roundedCharWidth = player.getWidth();
+
+
+
         ground1 = numBlocksHigh - 30;
 
         //Load bitmaps
@@ -773,16 +781,17 @@ public class GameActivity extends Activity {
 
 
         //scale the bitmaps to match the block size
-        charBitmap0 = Bitmap.createScaledBitmap(charBitmap0,roundedCharWidth, roundedCharHeight, false);
-        charBitmap1 = Bitmap.createScaledBitmap(charBitmap1,roundedCharWidth, roundedCharHeight, false);
-        charBitmap2 = Bitmap.createScaledBitmap(charBitmap2,roundedCharWidth, roundedCharHeight, false);
-        charBitmap3 = Bitmap.createScaledBitmap(charBitmap3,roundedCharWidth, roundedCharHeight, false);
-        charBitmap4 = Bitmap.createScaledBitmap(charBitmap4,roundedCharWidth, roundedCharHeight, false);
-        charBitmap5 = Bitmap.createScaledBitmap(charBitmap5,roundedCharWidth, roundedCharHeight, false);
-        charBitmap6 = Bitmap.createScaledBitmap(charBitmap6,roundedCharWidth, roundedCharHeight, false);
-        charBitmap7 = Bitmap.createScaledBitmap(charBitmap7,roundedCharWidth, roundedCharHeight, false);
-        charBitmap8 = Bitmap.createScaledBitmap(charBitmap8,roundedCharWidth, roundedCharHeight, false);
-        charBitmap9 = Bitmap.createScaledBitmap(charBitmap9,roundedCharWidth, roundedCharHeight, false);
+        charBitmap0 = Bitmap.createScaledBitmap(charBitmap0, player.getWidth(), player.getHeight(), false);
+        charBitmap1 = Bitmap.createScaledBitmap(charBitmap1, player.getWidth(), player.getHeight(), false);
+        charBitmap2 = Bitmap.createScaledBitmap(charBitmap2, player.getWidth(), player.getHeight(), false);
+        charBitmap3 = Bitmap.createScaledBitmap(charBitmap3, player.getWidth(), player.getHeight(), false);
+        charBitmap4 = Bitmap.createScaledBitmap(charBitmap4, player.getWidth(), player.getHeight(), false);
+        charBitmap5 = Bitmap.createScaledBitmap(charBitmap5, player.getWidth(), player.getHeight(), false);
+        charBitmap6 = Bitmap.createScaledBitmap(charBitmap6, player.getWidth(), player.getHeight(), false);
+        charBitmap7 = Bitmap.createScaledBitmap(charBitmap7, player.getWidth(), player.getHeight(), false);
+        charBitmap8 = Bitmap.createScaledBitmap(charBitmap8, player.getWidth(), player.getHeight(), false);
+        charBitmap9 = Bitmap.createScaledBitmap(charBitmap9, player.getWidth(), player.getHeight(), false);
+
         charWalkBitmap0 = Bitmap.createScaledBitmap(charWalkBitmap0,roundedCharWidth, roundedCharHeight, false);
         charWalkBitmap1 = Bitmap.createScaledBitmap(charWalkBitmap1,roundedCharWidth, roundedCharHeight, false);
         charWalkBitmap2 = Bitmap.createScaledBitmap(charWalkBitmap2,roundedCharWidth, roundedCharHeight, false);

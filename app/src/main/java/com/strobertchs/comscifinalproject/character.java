@@ -11,12 +11,14 @@ public class character extends GameActivity{
     int positionY;
     int height;
     int width;
+    int blockX;
 
-    public character(int positionX, int positionY, int height, int width){
+    public character(int positionX, int positionY, int height, int width, int blockX){
         this.positionX = (int) Math.round(blockSize * positionX);
         this.positionY = (int) Math.round(blockSize * positionY);
         this.height = (int) Math.round(blockSize * height);
         this.width = (int) Math.round(blockSize * width);
+        this.blockX = blockX;
 
 
 
@@ -29,12 +31,16 @@ public class character extends GameActivity{
         return positionY;
     }
 
-    public int getHeight(){
+    public int getRoundHeight(){
         return height;
     }
 
-    public int getWidth(){
+    public int getRoundedWidth(){
         return width;
+    }
+
+    public int getBlockX(){
+        return blockX;
     }
 }
 
