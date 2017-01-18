@@ -25,6 +25,16 @@ public class GameActivity extends Activity {
     int screenWidth;
     int screenHeight;
 
+    character player;
+    character enemy1;
+    character grassPlatform;
+    character jumpButtonDown;
+    character dpadLeft;
+    character dpadRight;
+    character portal;
+    character punchButton;
+
+
     int jumpNoPushX;
     int jumpNoPushY;
     int dpadleftX;
@@ -120,6 +130,7 @@ public class GameActivity extends Activity {
     int roundedEnemyBottleWidth;
     int roundedEnemyBottleHeight;
 
+
     boolean noPush = true;
 
     boolean noFlip = true;
@@ -166,7 +177,7 @@ public class GameActivity extends Activity {
         gameActivityView = new GameActivityView(this);
         setContentView(gameActivityView);
 
-
+/*
         jumpNoPushBlockX = 350;
         jumpNoPushBlockY = numBlocksHigh - mysteriousBottomGapBlock - 50;
         dpadleftBlockX = 0;
@@ -188,6 +199,7 @@ public class GameActivity extends Activity {
         grassPlatform2BlockY = 100;
         enemyBottleX = 360;
         enemyBottleY = 0;
+        */
 
 
     }
@@ -214,7 +226,7 @@ public class GameActivity extends Activity {
 
         public void gravity() {
             if (noGravity == false) {
-                charBlockPositionY = charBlockPositionY + 10;
+                player.setBlockY(player.getBlockY() + 10);
             }
         }
 
@@ -235,49 +247,49 @@ public class GameActivity extends Activity {
 
         public void jumpIfApplicable(){
             //10 stage jump
-            if (charMoveUp && (charBlockPositionY > 0)) {
+            if (charMoveUp && (player.getBlockY() > 0)) {
                 if (tempUp == 10){
                     tempUpFinal = true;
                 }
                 if (tempUp == 9) {
-                    charBlockPositionY = charBlockPositionY - 1;
+                    player.setBlockY(player.getBlockY() - 1);
                     tempUp = 10;
                 }
                 if (tempUp == 8) {
-                    charBlockPositionY = charBlockPositionY - 2;
+                    player.setBlockY(player.getBlockY() - 2);
                     tempUp = 9;
                 }
                 if (tempUp == 7) {
-                    charBlockPositionY = charBlockPositionY - 5;
+                    player.setBlockY(player.getBlockY() - 5);
                     tempUp = 8;
                 }
                 if (tempUp == 6) {
-                    charBlockPositionY = charBlockPositionY - 12;
+                    player.setBlockY(player.getBlockY() - 12);
                     tempUp = 7;
                 }
                 if (tempUp == 5){
-                    charBlockPositionY = charBlockPositionY - 18;
+                    player.setBlockY(player.getBlockY() - 18);
                     tempUp = 6;
                 }
                 if (tempUp == 4){
-                    charBlockPositionY = charBlockPositionY - 23;
+                    player.setBlockY(player.getBlockY() - 23);
                     tempUp = 5;
                 }
                 if (tempUp == 3){
-                    charBlockPositionY = charBlockPositionY - 26;
+                    player.setBlockY(player.getBlockY() - 26);
                     tempUp = 4;
                 }
                 if (tempUp == 2){
-                    charBlockPositionY = charBlockPositionY - 28;
+                    player.setBlockY(player.getBlockY() - 28);
                     tempUp = 3;
                 }
                 if (tempUp == 1){
-                    charBlockPositionY = charBlockPositionY - 30;
+                    player.setBlockY(player.getBlockY() - 30);
                     tempUp = 2;
                 }
             }
 
-            else if (charMoveUp && (charBlockPositionY < 0)){
+            else if (charMoveUp && (player.getBlockY() < 0)){
                 charMoveUp = false;
                 tempUp = 1;
                 tempUpFinal = false;
@@ -319,78 +331,76 @@ public class GameActivity extends Activity {
             noGravity = false;
 
             //checks if the character is along the width of the platform
-            if (((charBlockPositionX + (charBlockWidth/2)) > grassPlatformBlockX) && ((charBlockPositionX + (charBlockWidth/2)) < (grassPlatformBlockX + grassPlatformBlockWidth))) {
+            if (((player.getBlockX() + (player.getBlockWidth()/2)) > grassPlatform.getBlockX()) && ((player.getBlockX() + (player.getBlockWidth()/2)) < (grassPlatform.getBlockX() + grassPlatform.getBlockWidth()))) {
                 //checks if the character is within range of (10 block to 0 blocks above) the platform
-                if (((charBlockPositionY + charBlockHeight - charBlockBottomGap) >= grassPlatformBlockY - 10) && ((charBlockPositionY + charBlockHeight - charBlockBottomGap) <= grassPlatformBlockY)) {
+                if (((player.getBlockY() + player.getBlockHeight() - charBlockBottomGap) >= grassPlatform.getBlockY() - 10) && ((player.getBlockY() + player.getBlockHeight() - charBlockBottomGap) <= grassPlatform.getBlockY())) {
                     //sets noGravity to true so the character does not continue falling
                     noGravity = true;
                     //places the character on the platform
-                    charBlockPositionY = grassPlatformBlockY - charBlockHeight + charBlockBottomGap;
+                    player.setBlockY(grassPlatform.getBlockY() - player.getBlockHeight() + charBlockBottomGap);
                 }
             }
             //second platform
-            if (((charBlockPositionX + (charBlockWidth/2)) > grassPlatform2BlockX) && ((charBlockPositionX + (charBlockWidth/2)) < (grassPlatform2BlockX + grassPlatformBlockWidth))) {
-                if (((charBlockPositionY + charBlockHeight - charBlockBottomGap) >= grassPlatform2BlockY - 10) && ((charBlockPositionY + charBlockHeight - charBlockBottomGap) <= grassPlatform2BlockY)) {
+            if (((player.getBlockX() + (player.getBlockWidth()/2)) > grassPlatform2BlockX) && ((player.getBlockX() + (player.getBlockWidth()/2)) < (grassPlatform2BlockX + grassPlatform.getBlockWidth()))) {
+                if (((player.getBlockY() + player.getBlockHeight() - charBlockBottomGap) >= grassPlatform2BlockY - 10) && ((player.getBlockY() + player.getBlockHeight() - charBlockBottomGap) <= grassPlatform2BlockY)) {
                     noGravity = true;
-                    charBlockPositionY = grassPlatform2BlockY - charBlockHeight + charBlockBottomGap;
+                    player.setBlockY(grassPlatform2BlockY - player.getBlockHeight() + charBlockBottomGap);
                 }
             }
 
 
             // "charPosition.x < numBlocksWide - charWidth" restricts it from going any further to the right
-            if (charMoveRight && (charBlockPositionX < (numBlocksWide - charBlockWidth))) {
+            if (charMoveRight && (player.getBlockX() < (numBlocksWide - player.getBlockWidth()))) {
                 //move char right by 7
-                charBlockPositionX = charBlockPositionX + 3;
+                player.setBlockX(player.getBlockX() + 3);
             }
 
             // "charPosition.x > 0" restricts it from going any further to the left of it is smaller than 0
-            if (charMoveLeft && (charBlockPositionX > 0)) {
+            if (charMoveLeft && (player.getBlockX() > 0)) {
                 //move char left by 7
-                charBlockPositionX = charBlockPositionX - 3;
+                player.setBlockX(player.getBlockX() - 3);
             }
-
-
 
 
             //call the jumpIfApplicable method
             jumpIfApplicable();
 
             //if the player is in the air, apply gravity
-            if (charBlockPositionY < (ground1 - charBlockHeight)) {
+            if (player.getBlockY() < (ground1 - player.getBlockHeight())) {
                 gravity();
             }
 
             //if the player has hit the ground or lower, set the player on the ground
-            if (charBlockPositionY >= (ground1 - charBlockHeight)){
-                charBlockPositionY = ground1 - charBlockHeight;
+            if (player.getBlockY() >= (ground1 - player.getBlockHeight())){
+                player.setBlockY(ground1 - player.getBlockHeight());
             }
 
             //if enemy is in the air, apply gravity
-            if (enemyRobbieBlockY < (ground1 - enemyRobbieBlockHeight)){
-                enemyRobbieBlockY = applyGravityTo(enemyRobbieBlockY);
+            if (enemy1.getBlockY() < (ground1 - enemy1.getBlockHeight())){
+                enemy1.setBlockY(applyGravityTo(enemy1.getBlockY()));
             }
 
-            if (enemyRobbieBlockX > (250 - enemyRobbieBlockWidth)){
+            if (enemy1.getBlockX() > (250 - enemy1.getBlockWidth())){
                 enemyRobbieMoveLeft = true;
             }
 
             if (enemyRobbieMoveLeft){
-                enemyRobbieBlockX = enemyRobbieBlockX - 3;
+                enemy1.setBlockX(enemy1.getBlockX() - 3);
             }
 
-            if (enemyRobbieBlockX < 0){
+            if (enemy1.getBlockX() < 0){
                 enemyRobbieMoveLeft = false;
             }
 
             if (!enemyRobbieMoveLeft){
-                enemyRobbieBlockX = enemyRobbieBlockX + 3;
+                enemy1.setBlockX(enemy1.getBlockX() + 3);
             }
 
             //collision detection between the char and enemyrobbie
-            if ((Math.abs((charBlockPositionX + (charBlockWidth/2)) - (enemyRobbieBlockX + (enemyRobbieBlockWidth/2))) <= (charBlockWidth + enemyRobbieBlockWidth)/2 - 15)
-                    && (Math.abs((charBlockPositionY + (charBlockHeight/2)) - (enemyRobbieBlockY + (enemyRobbieBlockHeight/2))) <= (charBlockHeight + enemyRobbieBlockHeight)/2 - 10)){
-                charBlockPositionX = 100;
-                charBlockPositionY = 0;
+            if ((Math.abs((player.getBlockX() + (player.getBlockWidth()/2)) - (enemy1.getBlockX() + (enemy1.getBlockWidth()/2))) <= (player.getBlockWidth() + enemy1.getBlockWidth())/2 - 15)
+                    && (Math.abs((player.getBlockY() + (player.getBlockHeight()/2)) - (enemy1.getBlockY() + (enemy1.getBlockHeight()/2))) <= (player.getBlockHeight() + enemy1.getBlockHeight())/2 - 10)){
+                player.setBlockX(100);
+                player.setBlockY(0);
             }
 
             //if char is jumps above the screen, make it reappear at the bottom
@@ -400,17 +410,17 @@ public class GameActivity extends Activity {
             }
             */
             /*
-            if ((((grassPlatformBlockX + (grassPlatformBlockWidth/2)) - (charBlockPositionX + (charBlockWidth/2))) < 50)
-                    && (((grassPlatformBlockX + (grassPlatformBlockWidth/2)) - (charBlockPositionX + (charBlockWidth/2))) > -50)){
+            if ((((grassPlatformBlockX + (grassPlatformBlockWidth/2)) - (player.getBlockX() + (charBlockWidth/2))) < 50)
+                    && (((grassPlatformBlockX + (grassPlatformBlockWidth/2)) - (player.getBlockX() + (charBlockWidth/2))) > -50)){
                 noGravity = true;
             }
-            
-            if ((((grassPlatformBlockX + (grassPlatformBlockWidth/2)) - (charBlockPositionX + (charBlockWidth/2))) > 50)
-                    || (((grassPlatformBlockX + (grassPlatformBlockWidth/2)) - (charBlockPositionX + (charBlockWidth/2))) < -50)){
+
+            if ((((grassPlatformBlockX + (grassPlatformBlockWidth/2)) - (player.getBlockX() + (charBlockWidth/2))) > 50)
+                    || (((grassPlatformBlockX + (grassPlatformBlockWidth/2)) - (player.getBlockX() + (charBlockWidth/2))) < -50)){
                 noGravity = false;
             }
      */
-
+            /*
             dpadleftX = (int) Math.round(dpadleftBlockX * blockSize);
             dpadleftY = (int) Math.round(dpadleftBlockY * blockSize);
             dpadRightX = (int) Math.round(dpadRightBlockX * blockSize);
@@ -430,8 +440,28 @@ public class GameActivity extends Activity {
             jumpNoPushX = (int) Math.round(jumpNoPushBlockX * blockSize);
             jumpNoPushY = (int) Math.round(jumpNoPushBlockY * blockSize);
             enemyBottleX = (int) Math.round(enemyBottleX * blockSize);
-            enemyBottleY = (int) Math.round(enemyBottleY * blockSize);
+            enemyBottleY = (int) Math.round(enemyBottleY * blockSize);*/
 
+            player.setPositionX((int) Math.round(player.getBlockX() * blockSize));
+            player.setPositionY((int) Math.round(player.getBlockY() * blockSize));
+
+            enemy1.setPositionX((int) Math.round(enemy1.getBlockX() * blockSize));
+            enemy1.setPositionY((int) Math.round(enemy1.getBlockY() * blockSize));
+
+            grassPlatform.setPositionX((int) Math.round(grassPlatform.getBlockX() * blockSize));
+            grassPlatform.setPositionY((int) Math.round(grassPlatform.getBlockY() * blockSize));
+
+            jumpButtonDown.setPositionX((int) Math.round(jumpButtonDown.getBlockX() * blockSize));
+            jumpButtonDown.setPositionY((int) Math.round(jumpButtonDown.getBlockY() * blockSize));
+
+            dpadLeft.setPositionX((int) Math.round(dpadLeft.getBlockX() * blockSize));
+            dpadLeft.setPositionY((int) Math.round(dpadLeft.getBlockY() * blockSize));
+
+            dpadRight.setPositionX((int) Math.round(dpadRight.getBlockX() * blockSize));
+            dpadRight.setPositionY((int) Math.round(dpadRight.getBlockY() * blockSize));
+
+            portal.setPositionX((int) Math.round(portal.getBlockX() * blockSize));
+            portal.setPositionY((int) Math.round(portal.getBlockY() * blockSize));
 
         }
 
@@ -443,13 +473,13 @@ public class GameActivity extends Activity {
                 canvas.drawColor(Color.BLACK);//the background
                 paint.setColor(Color.argb(255, 255, 255, 255));
                 paint.setTextSize(25);
-                canvas.drawText(charBlockPositionX + ", " + charBlockPositionY +" fps:" + fps +", charFrame: " + charFrame + " numBlocksWide: " + numBlocksWide + " numBlocksHigh: " + numBlocksHigh
-                        + " " + (charBlockPositionY + charBlockHeight - charBlockBottomGap) +" "+ temp, 20, 40, paint);
+                canvas.drawText(player.getBlockX() + ", " + player.getBlockY() +" fps:" + fps +", charFrame: " + charFrame + " numBlocksWide: " + numBlocksWide + " numBlocksHigh: " + numBlocksHigh
+                        + " " + (player.getBlockY() + player.getBlockHeight() - charBlockBottomGap) +" "+ temp, 20, 40, paint);
 
-                canvas.drawBitmap(enemyRobbieBitmap, enemyRobbieX, enemyRobbieY, paint);
-                canvas.drawBitmap(portalBitmap,portalX,portalY, paint);
+                canvas.drawBitmap(enemyRobbieBitmap, enemy1.getPositionX(), enemy1.getPositionY(), paint);
+                canvas.drawBitmap(portalBitmap, portal.getPositionX(),portal.getPositionY(), paint);
                 //draw both grass platforms
-                canvas.drawBitmap(grassPlatformBitmap, grassPlatformX, grassPlatformY, paint);
+                canvas.drawBitmap(grassPlatformBitmap, grassPlatform.getPositionX(), grassPlatform.getPositionY(), paint);
                 canvas.drawBitmap(grassPlatformBitmap, grassPlatform2X, grassPlatform2Y, paint);
 
                 if (charMoveRight){
@@ -462,43 +492,43 @@ public class GameActivity extends Activity {
                 if (noFlip) {
                     /*
                     if (firstTouchCycle){
-                        charPositionX = (int) Math.round((charBlockPositionX - (charBlockWidth/2)) * blockSize);
+                        charPositionX = (int) Math.round((player.getBlockX() - (charBlockWidth/2)) * blockSize);
                         //firstTouchCycle = false;
                     }
                     */
 
                     if (charMoveRight) {
-                        canvas.drawBitmap(charWalkBitmapArray[charFrame], charPositionX, charPositionY, paint);
+                        canvas.drawBitmap(charWalkBitmapArray[charFrame], player.getPositionX(), player.getPositionY(), paint);
                     } else if (charJab) {
-                        if(charBlockPositionX < (numBlocksWide - charBlockWidth)){
-                            charBlockPositionX = charBlockPositionX + 3;
+                        if(player.getBlockX() < (numBlocksWide - player.getBlockWidth())){
+                            player.setBlockX(player.getBlockX() + 3);
                         }
-                        canvas.drawBitmap(charJabBitmapArray[charFrame], charPositionX, charPositionY, paint);
+                        canvas.drawBitmap(charJabBitmapArray[charFrame], player.getPositionX(), player.getPositionY(), paint);
                     } else {
-                        canvas.drawBitmap(charBitmapArray[charFrame], charPositionX, charPositionY, paint);
+                        canvas.drawBitmap(charBitmapArray[charFrame], player.getPositionX(), player.getPositionY(), paint);
                     }
                 }
 
                 if (!noFlip){
                     /*
                     if (firstTouchCycle){
-                        charPositionX = (int) Math.round((charBlockPositionX + (charBlockWidth/2)) * blockSize);
+                        charPositionX = (int) Math.round((player.getBlockX() + (charBlockWidth/2)) * blockSize);
                         //firstTouchCycle = false;
                     }
                     */
                     //Flipping the character when facing to the left
                     Matrix flipHorizontalMatrix = new Matrix();
                     flipHorizontalMatrix.setScale(-1,1);
-                    charPositionX = charPositionX + (int) Math.round(charBlockWidth * blockSize);
-                    flipHorizontalMatrix.postTranslate(charPositionX, charPositionY);
+                    player.setPositionX(player.getPositionX() + (int) Math.round(player.getBlockWidth() * blockSize));
+                    flipHorizontalMatrix.postTranslate(player.getPositionX(), player.getPositionY());
 
 
                     if (charMoveLeft){
                         canvas.drawBitmap(charWalkBitmapArray[charFrame], flipHorizontalMatrix, paint);
                     }
                     else if (charJab) {
-                        if (charBlockPositionX > 0) {
-                            charBlockPositionX = charBlockPositionX - 3;
+                        if (player.getBlockX() > 0) {
+                            player.setBlockX(player.getBlockX() - 3);
                         }
                         canvas.drawBitmap(charJabBitmapArray[charFrame], flipHorizontalMatrix, paint);
                     }
@@ -508,17 +538,17 @@ public class GameActivity extends Activity {
                     }
                 }
 
-                canvas.drawBitmap(dpadLeftBitmap, dpadleftX, dpadleftY, paint);
-                canvas.drawBitmap(dpadRightBitmap, dpadRightX, dpadRightY, paint);
-                canvas.drawBitmap(punchButtonBitmap, punchButtonX, punchButtonY, paint);
+                canvas.drawBitmap(dpadLeftBitmap, dpadLeft.getPositionX(), dpadLeft.getPositionY(), paint);
+                canvas.drawBitmap(dpadRightBitmap, dpadRight.getPositionX(), dpadRight.getPositionY(), paint);
+                canvas.drawBitmap(punchButtonBitmap, punchButton.getPositionX(), punchButton.getPositionY(), paint);
 
                 //if the button is not being pushed down
                 if (noPush) {
-                    canvas.drawBitmap(jumpNoPushBitmap, jumpNoPushX, jumpNoPushY, paint);
+                    canvas.drawBitmap(jumpNoPushBitmap, jumpButtonDown.getPositionX(), jumpButtonDown.getPositionY(), paint);
                 }
                 //if the button is being pushed down
                 if (!noPush){
-                    canvas.drawBitmap(jumpPushBitmap, jumpNoPushX, jumpNoPushY, paint);
+                    canvas.drawBitmap(jumpPushBitmap, jumpButtonDown.getPositionX(), jumpButtonDown.getPositionY(), paint);
                 }
 
                 ourHolder.unlockCanvasAndPost(canvas);
@@ -570,22 +600,22 @@ public class GameActivity extends Activity {
             switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
 
-                    if (generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), jumpNoPushX, jumpNoPushY, jumpNoPushBlockWidth, jumpNoPushBlockHeight)){
+                    if (generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), jumpButtonDown.getPositionX(), jumpButtonDown.getPositionY(), jumpButtonDown.getBlockWidth(), jumpButtonDown.getBlockHeight())){
                         //making it so that you can only jump once this 702-3453251-5641836is hardcoded for this map specifically for now.
-                        if (noGravity == true || charBlockPositionY == ground1 - charBlockHeight){
-                        charMoveUp = true;
-                        noPush = false;
+                        if (noGravity == true || player.getBlockY() == (ground1 - player.getBlockHeight())){
+                            charMoveUp = true;
+                            noPush = false;
                         }
                         else{
                             noPush = false;
                         }
-                }
+                    }
                     /*if (motionEvent.getY() <= screenHeight / 2){
                         charMoveUp = true;
                     }
                     */
                     //move right
-                    if (generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), dpadRightX, dpadRightY, dpadRightBlockWidth, dpadRightBlockHeight)) {
+                    if (generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), dpadRight.getPositionX(), dpadRight.getPositionY(), dpadRight.getBlockWidth(), dpadRight.getBlockHeight())) {
                         charMoveRight = true;
                         charMoveLeft = false;
                         charJab = false;
@@ -593,7 +623,7 @@ public class GameActivity extends Activity {
 
                     }
                     //move left
-                    if (generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), dpadleftX, dpadleftY, dpadLeftBlockWidth, dpadLeftBlockHeight)){
+                    if (generalButtonTouchEvent(motionEvent.getX(), motionEvent.getY(), dpadLeft.getPositionX(), dpadLeft.getPositionY(), dpadLeft.getBlockWidth(), dpadLeft.getBlockHeight())){
                         charMoveLeft = true;
                         charMoveRight = false;
                         charJab = false;
@@ -601,7 +631,7 @@ public class GameActivity extends Activity {
 
                     }
                     //Jab animation when we click the jab button
-                    if (generalButtonTouchEvent(motionEvent.getX(),motionEvent.getY(),punchButtonX,punchButtonY, punchButtonBlockWidth, punchButtonBlockHeight)){
+                    if (generalButtonTouchEvent(motionEvent.getX(),motionEvent.getY(),punchButton.getPositionX(),punchButton.getPositionY(), punchButton.getBlockWidth(), punchButton.getBlockWidth())){
                         charMoveRight = false;
                         charMoveLeft = false;
                         charJab = true;
@@ -679,7 +709,8 @@ public class GameActivity extends Activity {
         numBlocksWide = 400;
         numBlocksHigh = (int) Math.round(screenHeight/blockSize);
 
-        charBlockWidth = 30;
+
+       /* charBlockWidth = 30;
         charBlockHeight = 50;
         enemyRobbieBlockWidth = 33;
         enemyRobbieBlockHeight = 75;
@@ -696,10 +727,21 @@ public class GameActivity extends Activity {
         portalBlockWidth = 20;
 
         punchButtonBlockWidth = 40;
-        punchButtonBlockHeight = 40;
+        punchButtonBlockHeight = 40;*/
+
+// GUYS DO WE NEED THE CODE BELOW
+        /*character player = new character(200,0,50,30);
+        character enemyRobbie = new character(360,0,75,33);
+        character grassPlatform = new character(250,150,18,100);
+        character jumpNoPush = new character(350,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40);
+        character dpadLeft = new character(0,numBlocksHigh - mysteriousBottomGapBlock -50,40,40);
+        character dpadRight = new character(40,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40);
+        character portal = new character(290,103,50,20);
+        character punchButton = new character(300,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40);
 
 
-        roundedCharWidth = (int) Math.round(blockSize * charBlockWidth);
+
+        /*roundedCharWidth = (int) Math.round(blockSize * charBlockWidth);
         roundedCharHeight = (int) Math.round(blockSize * charBlockHeight);
         roundedRobbieWidth = (int) Math.round(blockSize * enemyRobbieBlockWidth);
         roundedRobbieHeight = (int) Math.round(blockSize * enemyRobbieBlockHeight);
@@ -714,16 +756,95 @@ public class GameActivity extends Activity {
         roundedPortalHeight = (int) Math.round(blockSize * portalBlockHeight);
         roundedPortalWidth = (int) Math.round(blockSize * portalBlockHeight);
         roundedPunchButtonHeight = (int) Math.round(blockSize * punchButtonBlockHeight);
-        roundedPunchButtonWidth = (int) Math.round(blockSize * punchButtonBlockWidth);
+        roundedPunchButtonWidth = (int) Math.round(blockSize * punchButtonBlockWidth);*/
 
+        player = new character(200,0,50,30,blockSize);
+        /*
+        enemyRobbie = new character(360,0,75,33,blockSize);
+        enemyRobbieX = enemyRobbie.getPositionX();
+        enemyRobbieY= enemyRobbie.getPositionY();
+        roundedRobbieWidth = enemyRobbie.getRoundedWidth();
+        roundedRobbieHeight = enemyRobbie.getRoundedHeight();
+        enemyRobbieBlockWidth = enemyRobbie.getBlockWidth();
+        enemyRobbieBlockHeight = enemyRobbie.getBlockHeight();
+        enemyRobbieBlockX = enemyRobbie.getBlockX();
+        enemyRobbieBlockY = enemyRobbie.getBlockY();
+        */
 
-        character player = new character(20,20,20,20);
-        int charPositionX = player.getPositionX();
-        int charPositionY = player.getPositionY();
-        int roundedCharHeight = player.getHeight();
-        int roundedCharWidth = player.getWidth();
+        enemy1 = new character(360,0,75,33,blockSize);
 
+        grassPlatform = new character(250,150,18,100,blockSize);
+        /*
+        grassPlatformX = grassPlatform.getPositionX();
+        grassPlatformY = grassPlatform.getPositionY();
+        roundedGrassPlatformWidth = grassPlatform.getRoundedWidth();
+        roundedGrassPlatformHeight = grassPlatform.getRoundedHeight();
+        grassPlatformBlockWidth = grassPlatform.getBlockWidth();
+        grassPlatformBlockHeight = grassPlatform.getBlockHeight();
+        grassPlatformBlockX = grassPlatform.getBlockX();
+        grassPlatformBlockY = grassPlatform.getBlockY();
+        */
 
+        jumpButtonDown = new character(350,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40,blockSize);
+
+        /*
+        jumpNoPushX = jumpNoPush.getPositionX();
+        jumpNoPushY = jumpNoPush.getPositionY();
+        roundedJumpNoPushWidth = jumpNoPush.getRoundedWidth();
+        roundedJumpNoPushHeight = jumpNoPush.getRoundedHeight();
+        jumpNoPushBlockHeight = jumpNoPush.getBlockHeight();
+        jumpNoPushBlockWidth = jumpNoPush.getBlockWidth();
+        jumpNoPushBlockX = jumpNoPush.getBlockX();
+        jumpNoPushBlockY = jumpNoPush.getBlockY();
+        */
+
+        dpadLeft = new character(0,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40,blockSize);
+        /*
+        dpadleftX = dpadLeft.getPositionX();
+        dpadleftY= dpadLeft.getPositionY();
+        roundedDpadLeftWidth = dpadLeft.getRoundedWidth();
+        roundedDpadLeftHeight = dpadLeft.getRoundedHeight();
+        dpadLeftBlockHeight = dpadLeft.getBlockHeight();
+        dpadLeftBlockWidth = dpadLeft.getBlockWidth();
+        dpadleftBlockX = dpadLeft.getBlockX();
+        dpadleftBlockY = dpadLeft.getBlockY();
+        */
+
+        dpadRight = new character(40,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40,blockSize);
+        /*
+        dpadRightX = dpadRight.getPositionX();
+        dpadRightY = dpadRight.getPositionY();
+        roundedDpadRightWidth = dpadRight.getRoundedWidth();
+        roundedDpadRightHeight = dpadRight.getRoundedHeight();
+        dpadRightBlockHeight = dpadRight.getBlockHeight();
+        dpadRightBlockWidth = dpadRight.getBlockWidth();
+        dpadRightBlockX = dpadRight.getBlockX();
+        dpadRightBlockY = dpadRight.getBlockY();
+        */
+
+        portal = new character(290,103,50,20,blockSize);
+        /*
+        portalX = portal.getPositionX();
+        portalY = portal.getPositionY();
+        roundedPortalWidth = portal.getRoundedWidth();
+        roundedPortalHeight = portal.getRoundedHeight();
+        portalBlockHeight = portal.getBlockHeight();
+        portalBlockWidth = portal.getBlockWidth();
+        portalBlockX = portal.getBlockX();
+        portalBlockY = portal.getBlockY();
+        */
+
+        punchButton = new character(300,numBlocksHigh - mysteriousBottomGapBlock - 50,40,40,blockSize);
+        /*
+        punchButtonX = punchButton.getPositionX();
+        punchButtonY = punchButton.getPositionY();
+        roundedPunchButtonWidth = punchButton.getRoundedWidth();
+        roundedPunchButtonHeight = punchButton.getRoundedHeight();
+        punchButtonBlockHeight = punchButton.getBlockHeight();
+        punchButtonBlockWidth = punchButton.getBlockWidth();
+        punchButtonBlockX = punchButton.getBlockX();
+        punchButtonBlockY = punchButton.getBlockY();
+        */
 
         ground1 = numBlocksHigh - 30;
 
@@ -781,46 +902,53 @@ public class GameActivity extends Activity {
 
 
         //scale the bitmaps to match the block size
-        charBitmap0 = Bitmap.createScaledBitmap(charBitmap0, player.getWidth(), player.getHeight(), false);
-        charBitmap1 = Bitmap.createScaledBitmap(charBitmap1, player.getWidth(), player.getHeight(), false);
-        charBitmap2 = Bitmap.createScaledBitmap(charBitmap2, player.getWidth(), player.getHeight(), false);
-        charBitmap3 = Bitmap.createScaledBitmap(charBitmap3, player.getWidth(), player.getHeight(), false);
-        charBitmap4 = Bitmap.createScaledBitmap(charBitmap4, player.getWidth(), player.getHeight(), false);
-        charBitmap5 = Bitmap.createScaledBitmap(charBitmap5, player.getWidth(), player.getHeight(), false);
-        charBitmap6 = Bitmap.createScaledBitmap(charBitmap6, player.getWidth(), player.getHeight(), false);
-        charBitmap7 = Bitmap.createScaledBitmap(charBitmap7, player.getWidth(), player.getHeight(), false);
-        charBitmap8 = Bitmap.createScaledBitmap(charBitmap8, player.getWidth(), player.getHeight(), false);
-        charBitmap9 = Bitmap.createScaledBitmap(charBitmap9, player.getWidth(), player.getHeight(), false);
+        charBitmap0 = Bitmap.createScaledBitmap(charBitmap0, player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charBitmap1 = Bitmap.createScaledBitmap(charBitmap1, player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charBitmap2 = Bitmap.createScaledBitmap(charBitmap2, player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charBitmap3 = Bitmap.createScaledBitmap(charBitmap3, player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charBitmap4 = Bitmap.createScaledBitmap(charBitmap4, player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charBitmap5 = Bitmap.createScaledBitmap(charBitmap5, player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charBitmap6 = Bitmap.createScaledBitmap(charBitmap6, player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charBitmap7 = Bitmap.createScaledBitmap(charBitmap7, player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charBitmap8 = Bitmap.createScaledBitmap(charBitmap8, player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charBitmap9 = Bitmap.createScaledBitmap(charBitmap9, player.getRoundedWidth(), player.getRoundedHeight(), false);
 
-        charWalkBitmap0 = Bitmap.createScaledBitmap(charWalkBitmap0,roundedCharWidth, roundedCharHeight, false);
-        charWalkBitmap1 = Bitmap.createScaledBitmap(charWalkBitmap1,roundedCharWidth, roundedCharHeight, false);
-        charWalkBitmap2 = Bitmap.createScaledBitmap(charWalkBitmap2,roundedCharWidth, roundedCharHeight, false);
-        charWalkBitmap3 = Bitmap.createScaledBitmap(charWalkBitmap3,roundedCharWidth, roundedCharHeight, false);
-        charWalkBitmap4 = Bitmap.createScaledBitmap(charWalkBitmap4,roundedCharWidth, roundedCharHeight, false);
-        charWalkBitmap5 = Bitmap.createScaledBitmap(charWalkBitmap5,roundedCharWidth, roundedCharHeight, false);
-        charWalkBitmap6 = Bitmap.createScaledBitmap(charWalkBitmap6,roundedCharWidth, roundedCharHeight, false);
-        charWalkBitmap7 = Bitmap.createScaledBitmap(charWalkBitmap7,roundedCharWidth, roundedCharHeight, false);
-        charWalkBitmap8 = Bitmap.createScaledBitmap(charWalkBitmap8,roundedCharWidth, roundedCharHeight, false);
-        charWalkBitmap9 = Bitmap.createScaledBitmap(charWalkBitmap9,roundedCharWidth, roundedCharHeight, false);
-        charJabBitmap0 = Bitmap.createScaledBitmap(charJabBitmap0,roundedCharWidth+14,roundedCharHeight, false);
-        charJabBitmap1 = Bitmap.createScaledBitmap(charJabBitmap1,roundedCharWidth+14,roundedCharHeight, false);
-        charJabBitmap2 = Bitmap.createScaledBitmap(charJabBitmap2,roundedCharWidth+14,roundedCharHeight, false);
-        charJabBitmap3 = Bitmap.createScaledBitmap(charJabBitmap3,roundedCharWidth+14,roundedCharHeight, false);
-        charJabBitmap4 = Bitmap.createScaledBitmap(charJabBitmap4,roundedCharWidth+14,roundedCharHeight, false);
-        charJabBitmap5 = Bitmap.createScaledBitmap(charJabBitmap5,roundedCharWidth+14,roundedCharHeight, false);
-        charJabBitmap6 = Bitmap.createScaledBitmap(charJabBitmap6,roundedCharWidth+14,roundedCharHeight, false);
-        charJabBitmap7 = Bitmap.createScaledBitmap(charJabBitmap7,roundedCharWidth+14,roundedCharHeight, false);
-        charJabBitmap8 = Bitmap.createScaledBitmap(charJabBitmap8,roundedCharWidth+14,roundedCharHeight, false);
-        charJabBitmap9 = Bitmap.createScaledBitmap(charJabBitmap9,roundedCharWidth+14,roundedCharHeight, false);
-        grassPlatformBitmap = Bitmap.createScaledBitmap(grassPlatformBitmap, roundedGrassPlatformWidth, roundedGrassPlatformHeight, false);
-        jumpNoPushBitmap = Bitmap.createScaledBitmap(jumpNoPushBitmap,roundedJumpNoPushWidth, roundedJumpNoPushHeight, false);
-        jumpPushBitmap = Bitmap.createScaledBitmap(jumpPushBitmap,roundedJumpNoPushWidth, roundedJumpNoPushHeight, false);
-        dpadLeftBitmap = Bitmap.createScaledBitmap(dpadLeftBitmap,roundedDpadLeftWidth,roundedDpadLeftHeight, false);
-        dpadRightBitmap = Bitmap.createScaledBitmap(dpadRightBitmap, roundedDpadRightWidth, roundedDpadRightHeight, false);
-        portalBitmap = Bitmap.createScaledBitmap(portalBitmap, roundedPortalWidth, roundedPortalHeight, false);
-        punchButtonBitmap = Bitmap.createScaledBitmap(punchButtonBitmap,roundedPunchButtonWidth,roundedPunchButtonHeight,false);
+        charWalkBitmap0 = Bitmap.createScaledBitmap(charWalkBitmap0,player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charWalkBitmap1 = Bitmap.createScaledBitmap(charWalkBitmap1,player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charWalkBitmap2 = Bitmap.createScaledBitmap(charWalkBitmap2,player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charWalkBitmap3 = Bitmap.createScaledBitmap(charWalkBitmap3,player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charWalkBitmap4 = Bitmap.createScaledBitmap(charWalkBitmap4,player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charWalkBitmap5 = Bitmap.createScaledBitmap(charWalkBitmap5,player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charWalkBitmap6 = Bitmap.createScaledBitmap(charWalkBitmap6,player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charWalkBitmap7 = Bitmap.createScaledBitmap(charWalkBitmap7,player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charWalkBitmap8 = Bitmap.createScaledBitmap(charWalkBitmap8,player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charWalkBitmap9 = Bitmap.createScaledBitmap(charWalkBitmap9,player.getRoundedWidth(), player.getRoundedHeight(), false);
+        charJabBitmap0 = Bitmap.createScaledBitmap(charJabBitmap0,player.getRoundedWidth()+14, player.getRoundedHeight(), false);
+        charJabBitmap1 = Bitmap.createScaledBitmap(charJabBitmap1,player.getRoundedWidth()+14, player.getRoundedHeight(), false);
+        charJabBitmap2 = Bitmap.createScaledBitmap(charJabBitmap2,player.getRoundedWidth()+14, player.getRoundedHeight(), false);
+        charJabBitmap3 = Bitmap.createScaledBitmap(charJabBitmap3,player.getRoundedWidth()+14, player.getRoundedHeight(), false);
+        charJabBitmap4 = Bitmap.createScaledBitmap(charJabBitmap4,player.getRoundedWidth()+14, player.getRoundedHeight(), false);
+        charJabBitmap5 = Bitmap.createScaledBitmap(charJabBitmap5,player.getRoundedWidth()+14, player.getRoundedHeight(), false);
+        charJabBitmap6 = Bitmap.createScaledBitmap(charJabBitmap6,player.getRoundedWidth()+14, player.getRoundedHeight(), false);
+        charJabBitmap7 = Bitmap.createScaledBitmap(charJabBitmap7,player.getRoundedWidth()+14, player.getRoundedHeight(), false);
+        charJabBitmap8 = Bitmap.createScaledBitmap(charJabBitmap8,player.getRoundedWidth()+14, player.getRoundedHeight(), false);
+        charJabBitmap9 = Bitmap.createScaledBitmap(charJabBitmap9,player.getRoundedWidth()+14, player.getRoundedHeight(), false);
 
-        enemyRobbieBitmap = Bitmap.createScaledBitmap(enemyRobbieBitmap,roundedRobbieWidth, roundedRobbieHeight, false);
+        grassPlatformBitmap = Bitmap.createScaledBitmap(grassPlatformBitmap, grassPlatform.getRoundedWidth(), grassPlatform.getRoundedHeight(), false);
+
+        jumpNoPushBitmap = Bitmap.createScaledBitmap(jumpNoPushBitmap, jumpButtonDown.getRoundedWidth(), jumpButtonDown.getRoundedHeight(), false);
+
+        jumpPushBitmap = Bitmap.createScaledBitmap(jumpPushBitmap, jumpButtonDown.getRoundedWidth(), jumpButtonDown.getRoundedHeight(), false);
+
+        dpadLeftBitmap = Bitmap.createScaledBitmap(dpadLeftBitmap, dpadLeft.getRoundedWidth(), dpadLeft.getRoundedHeight(), false);
+
+        dpadRightBitmap = Bitmap.createScaledBitmap(dpadRightBitmap, dpadRight.getRoundedWidth(), dpadRight.getRoundedHeight(), false);
+
+        portalBitmap = Bitmap.createScaledBitmap(portalBitmap, portal.getRoundedWidth(), portal.getRoundedHeight(), false);
+
+        punchButtonBitmap = Bitmap.createScaledBitmap(punchButtonBitmap, punchButton.getRoundedWidth(), punchButton.getRoundedHeight(),false);
+
+        enemyRobbieBitmap = Bitmap.createScaledBitmap(enemyRobbieBitmap, enemy1.getRoundedWidth(), enemy1.getRoundedHeight(), false);
 
 
         charBitmapArray = new Bitmap[]{charBitmap0, charBitmap1, charBitmap2, charBitmap3, charBitmap4, charBitmap5, charBitmap6, charBitmap7, charBitmap8, charBitmap9};
